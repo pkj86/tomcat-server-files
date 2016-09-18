@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>css selectors</title>
+<style type="text/css">
+	p {
+		height: 50px;
+		margin: 8px;
+		font-size: 16px;
+	}
+</style>
+<script src="../js/jquery-3.1.0.js"></script>
+</head>
+<body>
+	<p class="hClass"><b>나는</b></p>
+	<p>jQuery 입니다.</p>
+	<div>
+		<button>HTML 설정</button>
+		<button>HTML 추출</button>
+	</div>
+	<script>
+		$("button:eq(0)").click(function(){
+			$("p.hClass").html("<b>변경</b>");
+		});
+		$("button:eq(1)").click(function(){
+			alert($("p.hClass").html());
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+	img {
+		position: absolute;
+		width: 250px;
+		height: 300px;
+	}
+</style>
+<script>
+var isDrag = false;
+var isSelect = false;
+var x, y, eleX, eleY;
+var diff;
+
+window.onload = function () {
+	// 모든 이미지 검색해서 배열로
+	var iObj = document.querySelectorAll("img");
+	for (var i = 0; i < iObj.length; i++) {
+		// 각 배열들에 마우스다운 이벤트 삽입
+		iObj[i].addEventListener("mousedown", startMove);
+	}
+}
+function startMove(event) {
+	// Chrome : 왼쪽버튼(0), 오른쪽버튼(2)
+	console.log("event.button : " + event.button);
+	
+	if (event.button != 0) return;
+
+	var obj = event.target;
+	isSelect = true;
+	
+	eleX = event.target.offsetLeft;
+	eleY = event.target.offsetTop;
+	
+	x = event.clientX;
+	y = event.clientY;
+	
+	diff = {};
+	diff.x = x - eleX;
+	diff.y = y - eleY;
+	
+	console.log(eleX, eleY, x, y, diff);
+	// 눌린 오브젝트 젤 앞으로
+	obj.style.zIndex = 100;
+	
+	obj.addEventListener("mousemove", imgMove);
+	obj.addEventListener("mouseup", stopMove);
+	
+	event.preventDefault();
+	
+}
+function imgMove(event) {
+	var obj = event.target;
+	if (!isSelect) return false;
+	
+	if (!isDrag) {
+		isDrag = true;
+		obj.style.opacity = 0.5;
+	}
+	
+	var x = event.clientX;
+	var y = event.clientY;
+	
+	obj.style.position = "absolute";
+	
+	obj.style.left = x - diff.x + "px";
+	obj.style.top  = y - diff.y + "px";
+	
+}
+function stopMove(event) {
+	var obj = event.target;
+	obj.removeEventListener("mousemove", imgMove);
+	obj.removeEventListener("mouseup", stopMove);
+	
+	if (!isSelect) return;
+	
+	isSelect = false;
+	diff = null;
+	
+	if (isDrag) {
+		isDrag = false;
+		obj.style.opacity = 1;
+	}
+	
+	obj.style.zIndex = 1;
+}
+</script>
+</head>
+<body> 
+	<div>
+	    <img src="tile.png" />
+	    <img src="pension_1.jpg" />
+	</div>
+</body>
+</html>
+
+
+
+
+

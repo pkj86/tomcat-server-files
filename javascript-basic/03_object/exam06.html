@@ -1,0 +1,28 @@
+<!-- 
+	객체 비교하기 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var i = 1;
+	var j = "1";	
+	console.log(i == j);
+	
+	var iObj = { count: 1};
+	var jObj = { count: 1};	
+	console.log(iObj == jObj);
+	
+	var kObj = jObj;
+	console.log(kObj == jObj);
+	
+	kObj.count = 1000;	
+	console.log(jObj.count);
+	console.log(kObj.count);
+</script>
+</body>
+</html>

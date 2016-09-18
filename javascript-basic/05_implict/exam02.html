@@ -1,0 +1,56 @@
+<!-- 
+	Array
+	- Array(2)
+	- Array(1, 2, 3);
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	/* var arr1 = new Array(3);
+	var arr2 = new Array(3, 4, 5);
+	console.log(arr1, arr2); */
+	Array.prototype.remove = function(idx){
+		this.splice(idx, 1);
+	}
+	
+	var arr1 = ["1월", "2월", "3월", "4월"];
+	arr1.remove(0);
+	console.log(arr1);
+	var arr2 = ["떡국", "팥빙수", "햄버거", "짜장면"];
+	
+	/* console.log(arr1.concat(arr2));
+	console.log(arr1.join("/"));
+	console.log(arr1.slice(1, 3));
+	console.log(arr1.slice(1)); */
+	/* 
+	// 마지막에 데이터 추가
+	arr1.push("5월", "6월");
+	console.log(arr1);
+	
+	// 마지막 데이터 삭제
+	arr1.pop();
+	console.log(arr1);
+	
+	// 첫 데이터 삭제
+	arr1.shift();
+	console.log(arr1);
+	
+	// 처음에 데이터 추가
+	arr1.unshift("1월");
+	console.log(arr1);
+	*//*
+	arr1.reverse();
+	console.log(arr1);
+	*/
+	arr1.splice(1, 1);
+	console.log(arr1);
+	console.dir(arr1);
+	
+</script>
+</body>
+</html>

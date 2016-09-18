@@ -1,0 +1,28 @@
+<!-- 
+	String 관련 메소드
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var msg = "javascript is easy";
+	console.log(msg.charAt(0));
+	console.log(msg.indexOf("a"));
+	console.log(msg.lastIndexOf("a"));
+	console.log(msg.indexOf("a", 2));
+	var arr = msg.split("a");
+	console.log(arr);
+	
+	var arr2 = msg.split("a", 2);		// 분리된 배열을 2개까지만 반환.
+	console.log(arr2);
+	
+	console.log(msg.length);
+	console.log(msg.substring(2, 5));	// 2번 인덱스부터 5번 인덱스까지 짜름
+	console.log(msg.substr(2, 5));		// 2번 인덱스부터 5자리를 짜름.
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- 
+	eval("문자열")
+	- 문자열을 매개변수로 받아서 문자열의 내용을 자바스크립트 엔진에서 실행
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var str = "var i = 100; var j = 200; alert(i + j);";
+	alert(str);
+	eval(str);	// var i = 100; var j = 200; alert(i + j);
+	alert(i);	// 실제 코드로 살아나게(?) 되서 다른곳에서도 쓸수있다
+	
+	var arr = eval("[1, 2, 3, 4, 5]");
+	alert(arr[2]);
+</script>
+</body>
+</html>

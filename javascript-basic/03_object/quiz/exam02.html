@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	// MyMap 객체 정의 하기
+	var MyMap = {
+			data: {},
+			count: 0,
+			put: function(key, value){ this.data[key] = value; this.count++; },
+	        get: function(key){ return this.data[key]; },
+			del: function(key){ delete this.data[key]; this.count--; },
+			size: function(){ return this.count; },
+			clear: function(){ this.data = {}; this.count = 0; }
+		};
+	
+	var mData = MyMap;
+	mData.put("id", "sbc");
+	mData.put("name", "SON");
+	 
+	alert(mData.size());		// 2
+	alert(mData.get("id"));		// sbc
+	alert(mData.get("name"));	// SON
+	mData.del("id");
+	alert(mData.get("id"));		// undefinded
+	mData.clear();
+	alert(mData.size());		// 0
+</script>
+</body>
+</html>

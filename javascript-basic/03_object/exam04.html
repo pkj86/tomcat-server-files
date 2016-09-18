@@ -1,0 +1,38 @@
+<!-- 
+	자바스크립트에서 this는 호출하는 대상에 영향을 받는다.
+	객체안에서의 this는 객체 자신을 나타낸다.
+	
+	with (객체){
+		객체에 접근할때 객체이름을 앞에 놓는걸 생략가능해진다.
+	}
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var member = {
+			id: "hong",
+			setId: function(id){
+				this.id = id;
+			},
+			getId: function(){
+				return this.id;
+			}
+	};
+	console.log(member.getId());
+	member.setId("kim");
+	console.log(member.getId());
+	
+	with(member){
+		// 매개변수로 들어온 객체이름을 선언하는걸 생략가능해짐.
+		console.log(getId());
+		setId("kim");
+		console.log(getId());
+	}
+</script>
+</body>
+</html>

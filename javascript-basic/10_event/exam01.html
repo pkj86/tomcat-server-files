@@ -1,0 +1,50 @@
+<!-- 
+	고전 이벤트 설정 방식
+	
+	객체.on이벤트타입 = 콜백함수();
+	var btn = document.querySelector("button");
+	btn.onclick = function(){}
+	btn.onmousedown = function(){}
+	
+	이벤트 해제
+	btn.onclick = null;
+	
+	<button>클릭</button>
+	
+	<button onclick="chk();">클릭</button>
+	
+	var f = document.querySelector("form");
+	f.onsubmit
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	button{
+		width: 200px; height: 100px;
+		color: white;
+		background: tomato; border:2px solid black;
+		font-size: 25px;
+	}
+</style>
+</head>
+<body>
+	<button>1Button</button>
+	<button>2Button</button>
+	<button>3Button</button>
+	
+	<script type="text/javascript">
+		var btnArr = document.querySelectorAll("button");
+		for(var i = 0 ; i < btnArr.length ; i++)
+		{
+			btnArr[i].onclick = function(){
+				alert(i + "번 버튼 내용 : " + this.innerHTML);
+				// 이벤트 제거
+				this.onclick = null;
+			};
+		}
+	</script>
+</body>
+</html>

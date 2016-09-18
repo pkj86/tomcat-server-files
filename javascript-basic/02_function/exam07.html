@@ -1,0 +1,76 @@
+<!-- 
+	자바스크립트 3대 취업기준?
+	callback = 함수 내의 지역변수를 밖에서도 쓸수 있게 하는 기법. 클로져 기법과 같이 사용 / 함수자체를 리턴하거나 매개변수로 받는것.
+				제이쿼리, Node.js 에서 자주 씀.
+	scope chain
+	prototype chain
+	
+	콜백함수
+	- 함수는 데이터 타입의 일종이다 (객체)
+	- 함수를 매개변수 또는 결과로 리턴하는것.
+	- 일반적으로 코드에서직접 호출하는 것이 아니라 특정한 이벤트나 상황에서 자동 호출되는 함수를 말함.
+	
+	그냥 달달 외우지만 말고 실제 코드에 적용해본 경험을 말하는것이 취업에 매우 도움됨.
+	단순암기식 답변은 절대로 환영받지 못함. 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	/* function call(cb)
+	{
+		// 매개변수 cb가 함수처럼 작동하게 된다.
+		cb();
+	}
+	
+	function func()
+	{
+		console.log("콜백함수 실행됨");
+	}
+	//console.log(func);
+	//console.log(func());
+	call(func); */
+	
+	/* function call2()
+	{
+		function cb(){
+			console.log("callback call");
+		}
+		// 내부함수가 자신을 리턴하면 외부에서 사용할수 있게됨.
+		return cb;
+	}
+	
+	var func = call2();
+	func(); */
+	
+	/*	대중적이고 일반적인 콜백함수 패턴	*/
+	/****************************/
+	function call(cb)
+	{
+		cb();
+	}
+	
+	// 익명함수:일회용의 임시적 함수. 이렇게 쓰는것이 매우 일반적.
+	call(function(){
+		console.log("원래 func 였던 함수를 콜백");		
+	});
+	
+	function call2()
+	{
+		// 함수 자체를 바로 리턴해버림
+		return function (){
+			console.log("callback call");
+		}
+	}
+	
+	var func = call2();
+	func();
+	// 이렇게도 호출 가능. call2() 덩어리는 함수 그 자체고 뒤의 () 는 call2() 의 결과를 받기 위함.
+	call2()();
+</script>
+</body>
+</html>

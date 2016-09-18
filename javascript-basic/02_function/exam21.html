@@ -1,0 +1,23 @@
+<!-- 
+	parseInt("값");
+	number 값으로 반환 : 정수형
+	
+	Number("값"); : 내장객체
+	값에 숫자 외의 문자가 있다면 변경되지 않는다.
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 자바에선 익셉션 나지만 스크립트는 문자열을 만나면 해당 문자열의 파싱을 종료한다. 문자열 직전까지의 숫자는 변환됨.
+	// 처음부터 숫자가 아닌게 나오면 NaN을 반환하고 파싱은 하지 않는다.
+	console.log(parseInt("123") + "-" + parseInt("123a5") + "-" + parseInt("a123"));
+	// 문자열 전체에 문자가 하나라도 껴있다면 NaN을 반환.
+	console.log(Number("123") + "-" + Number("123a5") + "-" + Number("a123"));
+</script>
+</body>
+</html>

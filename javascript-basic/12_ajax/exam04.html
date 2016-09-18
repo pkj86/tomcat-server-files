@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../framework.js"></script>
+</head>
+<body>
+	<h2>파라메터 처리 확인</h2>
+	<hr />
+	<textarea rows="10" cols="80" id="debug"></textarea>
+	<br>
+	<button id="clearBtn">초기화</button>
+	<button id="send1">GET전송</button>
+	<button id="send2">POST전송</button>
+	
+	<script type="text/javascript">
+		$("#clearBtn").on("click", function(){
+			$("#debug").val("");
+		});
+		$("#send1").on("click", function(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200)
+					{
+						$("#debug").val($("#debug").val() + xhr.responseText + "\n");
+					}
+				}					
+			};
+			xhr.open("get", "/javascript-basic/exam04?msg=test", true);
+			xhr.send(null);
+		});
+		$("#send2").on("click", function(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200)
+					{
+						$("#debug").val($("#debug").val() + xhr.responseText + "\n");
+					}
+				}					
+			};
+			xhr.open("post", "/javascript-basic/exam04", true);
+			// post 방식일때 추가처리
+			// header 의 Content-Type 을 설정해야 한다.
+			// application/x-www-form-urlencoded
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("msg=test");
+		});
+	</script>
+</body>
+</html>

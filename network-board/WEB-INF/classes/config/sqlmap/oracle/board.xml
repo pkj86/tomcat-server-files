@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jspboard.BoardDAO">
+	<!-- 게시물 삭제 -->
+	<!-- 반환값 int 0 : 실패 , 1: 성공 -->
+	<delete id="deleteBoard" parameterType="int">
+    	delete from t86_board
+    	where no = #{postNo}
+    </delete>
+    <insert id="insertBoard" parameterType="board">
+    	<selectKey keyProperty="postNo" order="BEFORE" resultType="int">
+    		select s86_board_no.nextval from dual
+   		</selectKey>
+    	insert into t86_board (no, title, writer, content)
+    	values (#{postNo}, #{title}, #{writer}, #{content})
+    </insert>
+    <update id="updateBoard" parameterType="board">
+    	update t86_board 
+    	set title = #{title}, 
+		content = #{content}
+    	where no = #{postNo}    	
+    </update>
+    <select id="getBoardListAll" resultType="board">
+    	select no as postNo, title, writer, reg_date as regDate
+    	from t86_board
+    </select>
+    <select id="getBoardListOne" parameterType="int" resultType="board">
+    	select no as postNo, title, writer, content, reg_date as regDate
+    	from t86_board 
+    	where no = #{postNo}
+    </select>
+    <select id="getFileListOne" parameterType="int" resultType="file">
+    	select file_no as fileNo, 
+	    	no as postNo, 
+	    	ori_file_name as oriName, 
+	    	real_file_name as realName, 
+	    	file_path as path, 
+	    	file_size as fileSize
+    	from t86_board_file
+    	where no = #{postNo}
+    </select>
+    <insert id="insertFile" parameterType="file">
+    	insert into t86_board_file (file_no, no, ori_file_name, real_file_name, file_path, file_size)
+    	values (s86_board_file_no.nextval, #{postNo}, #{oriName}, #{realName}, #{path}, #{fileSize})
+    </insert>
+    <insert id="insertReply" parameterType="reply">
+    	insert into t86_board_reply (reply_no, no, reply_writer, reply_content)
+    	values (s86_board_reply_no.nextval, #{postNo}, #{rWriter}, #{rContent})
+    </insert>
+    <select id="getReplyListAll" parameterType="int" resultType="reply">
+    	select reply_no as replyNo, 
+    			no as postNo, 
+    			reply_writer as rWriter, 
+    			reply_content as rContent, 
+    			reply_regdate as rRegDate
+    	from t86_board_reply
+    	where no = #{postNo}
+    </select>
+    <delete id="deleteReply" parameterType="int">
+    	delete from t86_board_reply
+    	where reply_no = #{replyNo}
+    </delete>
+    <update id="updateReply" parameterType="reply">
+	    update t86_board_reply
+	       set reply_content = #{rContent}
+	     where reply_no = #{replyNo}
+	</update>
+	<select id="loginUser" parameterType="user" resultType="user">
+		select id, pass, name, email 
+		from t86_board_user
+		where id = #{id}
+		and pass = #{pass}
+	</select>
+</mapper>

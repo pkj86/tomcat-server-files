@@ -1,0 +1,39 @@
+<!-- 
+	자바스크립트 객체에 동적으로 프로퍼티 추가가 가능함
+	(함수도 가능)
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	/*
+		member 객체 선언.
+		: id, setId, getId, email 프로퍼티 기본 설정
+	*/
+	var member = {
+			id: "hong",
+			setId: function(id){
+				this.id = id;
+			},
+			getId: function(){
+				return id;
+			},
+			email: "a@a.com"
+		};
+	// 동적으로 프로퍼티 추가(함수)
+	member.setEmail = function(email){ this.email = email;};
+	member.getEmail = function(){ return this.email;};
+	// 이메일을 설정하고 설정된 이메일을 확인할수 있는 함수 추가
+	with(member){
+		console.log(getEmail());
+		setEmail("b@b.com");
+		console.log(getEmail());		
+	}
+	// 올바르게 동작되는지 체크하는 코드 추가함
+</script>
+</body>
+</html>

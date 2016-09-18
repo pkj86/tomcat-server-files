@@ -1,0 +1,29 @@
+<!-- 
+	자바스크립트 매개변수 처리
+	arguments : 매개변수를 초함하고 있는 함수 내부 프로퍼티
+				(유사배열)
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	function argFunc()
+	{
+		console.log("----------------------------");
+		for(var i = 0 ; i < arguments.length ; i++)
+		{
+			console.log(arguments[i]);
+		}
+		console.log("----------------------------");
+	}
+	
+	argFunc();
+	argFunc(1);
+	argFunc(1, 2, 3);
+</script>
+</body>
+</html>

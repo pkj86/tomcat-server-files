@@ -1,0 +1,25 @@
+<!-- 
+	매개변수에 객체형 값을 넘겨서 처리한 경우
+	원본 데이터에 영향이 있다.
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var arr = [1, 2];
+	
+	function func(arr)
+	{
+		arr.push(3);
+	}
+	// 변수의 주소값이 들어갔으므로 전역변수에도 영향이 미침. (call by referance)
+	// 자바스크립트도 주소값 개념이 존재한다. 기본형 변수와 객체형 변수의 차이.
+	func(arr);
+	console.log(arr);
+</script>
+</body>
+</html>

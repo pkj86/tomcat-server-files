@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	function argFunc()
+	{
+		if(arguments.length > 1)
+		{console.log("잘못된 인수의 개수");}
+		else
+		{console.log("매개변수 : " + arguments[0]);}
+	}
+	argFunc(7);		// 매개변수 : 7
+	argFunc(1, 2);	// 잘못된 인수의 개수입니다.
+</script>
+</body>
+</html>

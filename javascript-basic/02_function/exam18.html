@@ -1,0 +1,29 @@
+<!-- 
+	// 지정된 시간 뒤에 함수 실행 : 반복
+	var id = setInterval(콜백함수, 밀리세컨드);
+	// 함수 실행 취소
+	clearInterval(id); 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var i  = 1;
+	function func()
+	{
+		console.log("자동 호출됨" + i++);
+	}
+	var id = setInterval(func, 1000);
+	// 취소
+	setTimeout(function(){
+		clearInterval(id);
+	}, 10000);	
+	
+	func();
+</script>
+</body>
+</html>

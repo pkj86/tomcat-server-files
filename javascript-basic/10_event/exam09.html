@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	p{
+		font-size: 20px;
+		font-weight: bold;
+		height: 40px;
+		background: tomato;
+		color: white;
+		text-align: center;
+		line-height: 40px;
+	}
+	div{
+		height: 700px;
+		background-color: yellow;
+		font-size: 20px;
+		overflow: auto;
+	}
+</style>
+</head>
+<body>
+	<p>마우스 이벤트 연습</p>
+	<div></div>
+	
+	<script type="text/javascript">
+		var pObj = document.querySelector("p");
+		var dObj = document.querySelector("div");
+		
+		// 마우스가 엘리먼트 안으로 들어갔을때
+		/* pObj.addEventListener("mouseenter", function(){
+			dObj.innerHTML = "마우스가 들어갔습니다.<br>" + dObj.innerHTML;
+		});
+		pObj.addEventListener("mouseleave", function(){
+			dObj.innerHTML = "마우스가 빠져나갔습니다.<br>" + dObj.innerHTML;
+		}); */
+		pObj.addEventListener("mousedown", function(){
+			dObj.innerHTML = "마우스가 눌렸습니다.<br>" + dObj.innerHTML;
+		});
+		pObj.addEventListener("mouseup", function(){
+			dObj.innerHTML = "마우스가 떼였습니다.<br>" + dObj.innerHTML;
+		});
+		pObj.addEventListener("mousemove", function(e){
+			var obj = e.target;
+			var left = obj.offsetLeft;
+			var top = obj.offsetTop;
+						
+			dObj.innerHTML = "left: " + left + ",top: " + top + ",clientX: " + e.clientX + ",clientY: " + e.clientY + "<br>" + dObj.innerHTML;
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!-- 
+	자바스크립트 생성자란?
+	- 일반 함수이다.
+	- 함수의 이름을 대문자로 설정함(선택적..)
+	- 생성자의 역활을 하기 위해서는 new와 함께 사용
+	- 함수에 클래스 역활을 부여함.
+	- 생성자 함수내에서 this는 함수 자체(생성된 객체)를 나타낸다.
+	- 만약, new 와 같이 사용하지 않았다면 생성자 역활을 못한다.
+	   이때, this 가 함수를 가리키지 않고 window 객체를 가리키게 된다.
+	   
+	함수의 prototype-chain
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Member(id, name, age)
+	{
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		//this.info = function(){ console.log(this.id, this.name, this.age); };
+	}
+	
+	/* Member.prototype = {
+			info: function()
+			{
+				console.log(this.id, this.name, this.age);
+			},
+			setId: function(id)
+			{
+				this.id = id;
+			},
+			getId: function()
+			{
+				return this.id;
+			}
+	}; */
+	
+	Member.prototype.info = function(){ 
+			console.log(this.id, this.name, this.age); 
+		};
+		
+	Member.prototype.setId = function(id){ 
+		this.id = id; 
+	};
+	
+	Member.prototype.getId = function(){ 
+		return this.id; 
+	};
+	
+	var mem1 = new Member("kim", "호동", 30);
+	var mem2 = new Member("lee", "동", 40);
+	/* console.log(mem1);
+	console.log(mem1.id);
+	console.dir(mem1); */
+	/* var mem2 = Member("kim", "호동", 30);
+	console.log(mem2); */
+</script>
+</body>
+</html>

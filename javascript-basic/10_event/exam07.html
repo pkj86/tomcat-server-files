@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div, h1{
+		border: 2px solid black;
+		margin: 30px;
+	}
+</style>
+</head>
+<body>
+	<div id="outerDiv">
+		<div id="innerDiv">
+			<h1 id="h1Obj">
+				이벤트 전파 확인
+			</h1>
+		</div>	
+	</div>
+	<div id="debug"></div>
+	
+	<script type="text/javascript">
+		var oDiv = document.querySelector("#outerDiv");
+		var iDiv = document.querySelector("#innerDiv");
+		var h1Obj = document.querySelector("#h1Obj");
+		
+		oDiv.addEventListener("click", function(e){
+			debug("가장 바깥쪽 DIV");
+		});
+		iDiv.addEventListener("click", function(e){
+			debug("안쪽 DIV");
+			e.stopPropagation();
+		});
+		h1Obj.addEventListener("click", function(e){
+			debug("H1");
+			// 이벤트 전파 중지
+			e.stopPropagation();
+		});
+		function debug(msg)
+		{
+			var debug = document.querySelector("#debug");
+			debug.innerHTML += msg + "<br>";
+		}
+	</script>
+</body>
+</html>

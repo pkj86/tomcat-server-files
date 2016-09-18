@@ -1,0 +1,36 @@
+<!-- 
+	함수는 오버로딩을 지원하지 않는다.
+	동일 명칭 함수는 덮어쓰기 방식으로 처리됨.
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var func = function()
+		{
+			console.log("0");
+		};
+		function func()
+		{
+			console.log("1");			
+		}
+		func();
+		
+		function func()
+		{
+			console.log("2");			
+		}
+		func();
+		
+		function func(num1, num2, num3)
+		{
+			console.log("3");			
+		}
+		func(100, 200, 300);
+	</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../framework.js"></script>
+</head>
+<body>
+	<h1>서버에서 받은 메시지</h1>
+	<div id="result"></div><br>
+	<button>Ajax 호출</button>
+	<script type="text/javascript">
+		/* var btn = document.querySelector("button");
+		btn.addEventListener("click", function(){}); */
+		function responseMsg(result){
+			//alert(result);
+			$("#result").html(result);
+		};
+		
+		$("button").click(function(){
+			$.ajax({
+					//type: "GET", 
+					//dataType: "json or xml or html", 
+					url: "hello.jsp", 
+					//data: {}, 
+					success: responseMsg});			
+		});
+	</script>
+</body>
+</html>

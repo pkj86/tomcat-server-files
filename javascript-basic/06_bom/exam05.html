@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	console.log(navigator);
+	var msg;
+	var agent = navigator.userAgent;
+	if(agent.indexOf("iPhone") != -1)
+	{
+		msg = "iPhone 접속";
+	}
+	else if(agent.indexOf("Android") != -1)
+	{
+		msg = "Android 접속";
+	}
+	else if(agent.indexOf("Chrome") != -1)
+	{
+		msg = "Chrome 접속";
+	}
+	else if(agent.indexOf(".NET") != -1)
+	{
+		msg = "IE 접속";
+	}
+	alert(msg);
+</script>
+</body>
+</html>

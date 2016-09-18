@@ -1,0 +1,22 @@
+<!-- 
+	javascript 파일을 별도로 사용하는 방식
+	
+	.js 파일을 생성한후 사용하려는 html 파일에서 <script src="파일위치"></script>
+	
+	주의점 ...
+	<script src="파일위치">여기에 스크립트를 넣으면 안됨</script>
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="exam02_sub.js"></script>
+</head>
+<body>
+	<h1>외부 자바스크립트파일 접근하기</h1>
+	<script src="exam02_sub.js">
+		alert(111); < 이 구문은 무시됨. src의 파일 스크립트만 실행됨
+	</script>
+</body>
+</html>

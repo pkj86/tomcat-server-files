@@ -1,0 +1,36 @@
+<!-- 
+	Date
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	var d1 = new Date();
+	console.log(d1.toLocaleDateString());
+	
+	var d2 = new Date(1000);
+	console.log(d2.toLocaleDateString());
+	
+	var d3 = new Date(2016, 7, 20);
+	console.log(d3.toLocaleDateString());
+	
+	console.log(d3.getFullYear());	// 년도얻기
+	console.log(d3.getMonth() + 1);	// 월 얻기
+	console.log(d3.getDate());		// 일 얻기
+	console.log(d3.getDay());		// 요일(0일~6토)얻기
+	console.log(d3.getTime());		// 밀리세컨드 반환
+	
+	var currentDate = new Date();
+	var checkDate = new Date(2016, 5, 10);
+	
+	// currentDate와 checkDate간의 날짜 차이.
+	var interval = currentDate.getTime() - checkDate.getTime();
+	var intervalDate = Math.floor(interval / (1000 * 60 * 60 * 24));
+	console.log(intervalDate);
+</script>
+</body>
+</html>

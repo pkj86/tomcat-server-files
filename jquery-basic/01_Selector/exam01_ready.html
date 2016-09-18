@@ -1,0 +1,33 @@
+<!-- 
+window.onload 기능 대체
+$(document).ready(function)
+단축된 표현 $(function)
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.1.0.js"></script>
+<script>
+	// 기존 방식
+	window.onload = function(){
+		var h1Obj = document.querySelector("h1");
+		alert("3 : " + h1Obj.innerHTML);		
+	};
+	
+	// jQuery 방식 - 1
+	$(function(){
+		alert("1 : " + $("h1").html());		
+	});
+	// 2번째 방식
+	$(document).ready(function(){
+		alert("2 : " + $("h1").html());		
+	});
+	
+</script>
+</head>
+<body>
+	<h1>jQuery란?</h1>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div{
+		background: #334455;
+	}
+</style>
+</head>
+<body>
+	<div style="width: 200px; height: 200px;">
+		<p>DIV CSS</p>
+	</div>
+	<script type="text/javascript">
+		var divObj = document.querySelector("div");
+		console.log(divObj.style.width);
+		console.log(divObj.style.height);
+		console.log(divObj.style.background);
+		
+		var backVal = document.defaultView.getComputedStyle(divObj, null).getPropertyValue("background");
+		console.log(backVal);
+	</script>
+</body>
+</html>

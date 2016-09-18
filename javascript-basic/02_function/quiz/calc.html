@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.kan{
+		margin: 5px 5px;
+		border: 2px solid black;
+		text-align: center;
+		width: 22%; height: 50px;
+		display: inline-block;
+		float: left;
+		box-sizing: border-box;
+		line-height: 50px;
+		font-weight: bold;
+		font-size: 30px;
+	}
+	/* .kan2{
+		margin: 5px 5px;
+		border: 2px solid black;
+		text-align: center;
+		width: 46%; height: 50px;
+		display: inline-block;
+		float: left;
+		box-sizing: border-box;
+		line-height: 50px;
+	} */
+	.kan:HOVER, .kan2:HOVER {
+		background-color: black;
+		color: white;
+	}
+</style>
+</head>
+<body>
+<div style="border: 1px dotted green; width: 400px; height: 500px;">
+	<input type="text" id="number" style="width: 99%; height: 50px;"/><br>
+	<div class="kan" onclick="input(7)">7</div>
+	<div class="kan" onclick="input(8)">8</div>
+	<div class="kan" onclick="input(9)">9</div>
+	<div class="kan" onclick="input(/)">/</div>
+	
+	<div class="kan" style="clear: both;" onclick="input(4)">4</div>
+	<div class="kan" onclick="input(5)">5</div>
+	<div class="kan" onclick="input(6)">6</div>
+	<div class="kan" onclick="input(*)">*</div>
+	
+	<div class="kan" style="clear: both;" onclick="input(1)">1</div>
+	<div class="kan" onclick="input(2)">2</div>
+	<div class="kan" onclick="input(3)">3</div>
+	<div class="kan" onclick="input(-)">-</div>
+	
+	<div class="kan" style="clear: both;" onclick="input(0)">0</div>
+	<div class="kan" onclick="input(.)">.</div>
+	<div class="kan" onclick="input(+)">+</div>
+	<div class="kan" onclick="input(%)">%</div>
+	
+	<div class="kan" style="clear: both; width: 46.5%;" onclick="input(=)">=</div>
+	<div class="kan" style="width: 46.5%;" onclick="clearin()">clear</div>
+</div>
+<script type="text/javascript">
+	var inputLine = "";
+	var symbol = "";
+	function input(value)
+	{
+		if(isNaN(parseInt(value)))
+		{
+			// 문자일경우
+			if(value != "=")
+			{
+				symbol = value;
+				parseInt(inputLine) += symbol;
+				clearin();
+			}
+			else{				
+				eval("var result = " + inputLine);
+				document.getElementById("number").value = result;
+			}
+		}
+		else
+		{
+			// 숫자일경우
+			inputLine += value;
+			document.getElementById("number").value = inputLine;
+		}
+	}
+	
+	function clearin()
+	{
+		inputLine = "";
+		document.getElementById("number").value = inputLine;	
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!-- 
+	표준 이벤트 모델
+	객체.addEventListener(이벤트타입, 콜백함수(이벤트 리스너), 전파여부);
+	
+	1. <button onclick="chk();">Click</button>
+	2. var btn = document.querySelector("button");
+		btn.onclick = function(){};
+		<button>Click</button>
+	3. var btn = document.querySelector("button");
+		btn.addEventListener("click", function(){}, true);
+		<button>Click</button>
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	button{
+		width: 200px; height: 100px;
+		color: white;
+		background: tomato; border:2px solid black;
+		font-size: 25px;
+	}
+</style>
+</head>
+<body>
+	<button>1Button</button>
+	<button>2Button</button>
+	<button>3Button</button>
+	
+	<script type="text/javascript">
+		var btnArr = document.querySelectorAll("button");
+		for(var i = 0 ; i < btnArr.length ; i++)
+		{
+			btnArr[i].addEventListener("click", function(e){
+				console.dir(e);
+				// 클릭이벤트가 발생된 대상 객체
+				var obj = e.target;
+				console.log(obj.innerHTML);
+				// 이벤트가 발생한 대상 객체의 좌표
+				console.log(obj.offsetLeft, obj.offsetTop);
+				// 이벤트가 발생한 좌표와 대상 객체의 좌표차이
+				console.log(e.offsetX, e.offsetY);
+				// 웹브라우저와의 거리
+				console.log(e.clientX, e.clientY);
+				// 모니터 자체의 좌표
+				console.log(e.screenX, e.screenY);
+			});				
+		}
+	</script>
+</body>
+</html>

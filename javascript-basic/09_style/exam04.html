@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button onclick="sizeUp()">크게</button>
+	<button onclick="sizeDown()">작게</button>
+	<div>
+		<p>마술사<br>300년동안 악명높은.......</p>
+		<p>갓오브하이스쿨<br>전국 고등학생들의......</p>
+	</div>
+	<script type="text/javascript">
+		var div = document.querySelector("div");
+		function sizeUp()
+		{
+			div.style.fontSize = "larger";
+		}
+		
+		function sizeDown()
+		{
+			div.style.fontSize = "smaller";
+		}
+	</script>
+</body>
+</html>
