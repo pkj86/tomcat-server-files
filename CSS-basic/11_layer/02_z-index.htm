@@ -1,0 +1,18 @@
+<html>
+<head>
+<title> z-index 변경 </title>
+<meta charset="utf-8" />
+<style type="text/css">
+	/* z-index 숫자가 클수록 우선순위 높음. */
+	#layer1{position: absolute; left: 200px; top: 200px; font-size: 100px; color: skyblue; z-index: 2;}
+	#layer2{position: absolute; left: 203px; top: 203px; font-size: 100px; color: tomato; z-index: 1;}
+</style>
+<body>
+	<div align="center">
+	   <h3> [ z-index 활용 ] </h3>
+	   <hr />
+	</div>
+	<div id="layer1">Java86</div>
+	<div id="layer2">Java86</div>
+</body>
+</html>

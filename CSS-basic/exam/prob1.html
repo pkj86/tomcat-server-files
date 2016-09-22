@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#hi{
+		border-bottom: 1px solid black;
+		height: 20px;
+	}
+	#inputText{
+		border: none;
+		border-bottom: 2px solid black;
+		height: 20px;
+	}
+	#head{
+		background-color: #C9C9C9;
+		width: 120px;
+		height: 30px;
+		font-size: 14px;
+	}
+	#hi2{
+		height: 20px;
+	}
+	#middle{
+		height: 40px;
+		margin: auto 0;
+	}
+	#tail{
+		text-align:left;
+		width: 200px;
+	}
+	#btn{
+		font-size: 16px;
+		height: 30px;
+	}
+</style>
+</head>
+<body>
+	<h3>회원 정보 입력하기</h3>
+	<hr>
+	<table>
+		<tr>
+			<td id="head">아 이 디</td>
+			<td id="middle"><input type="text" size="30" id="inputText"/></td>
+			<td id="tail"></td>
+		</tr>
+		<tr>
+			<td id="head">비밀번호</td>
+			<td id="middle"><input type="password" size="30" id="inputText"/></td>
+			<td id="tail"></td>
+		</tr>
+		<tr>
+			<td id="head">비밀번호 확인</td>
+			<td id="middle"><input type="password" size="30" id="inputText"/></td>
+			<td id="tail"></td>
+		</tr>
+		<tr>
+			<td id="head">이름</td>
+			<td id="middle"><input type="text" size="30" id="inputText"/></td>
+			<td id="tail"></td>
+		</tr>
+		<tr>
+			<td id="head">전화번호</td>
+			<td id="middle"><input type="text" size="30" id="inputText"/></td>
+			<td id="tail">(숫자만 입력하세요)</td>
+		</tr>
+		<tr>
+			<td id="head">주소</td>
+			<td colspan="2" id="middle"><input type="text" size="55" id="inputText"/></td>
+			<td id="tail"></td>
+		</tr>
+		<tr><td colspan="3" id="hi"></td></tr>
+		<tr id="hi2"></tr>
+		<tr>
+			<td></td>
+			<td><input id="btn" type="submit" value="등록하기"/> <input id="btn" type="reset" value="새로쓰기"/></td>
+		</tr>
+	</table>	
+</body>
+</html>

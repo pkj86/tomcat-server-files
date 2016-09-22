@@ -1,81 +1,519 @@
 <!DOCTYPE html>
-<html>
+<html class="bordercolor-theme-light">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>BitSchedule</title>
+<script src="js/jquery-3.1.0.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 이쁜 폰트 쓸수있는 fontawesome -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css" />
+<!-- 부가적인 테마 -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> -->
+<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+<!-- <script src="js/bootstrap.min.js"></script> -->
 <style type="text/css">
+	*{
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		box-sizing: border-box;
+	}
 	html, body{
 		width:100%; height: 100%;
 		overflow: hidden;
 		position: absolute;
-		border:10px solid gray;
-		box-sizing: border-box;
+		border:10px solid;
 	}
-	.treeIconPlace{
+	.bordercolor-theme-heavy{
+		border-color: #111 !important;
+	}
+	.bordercolor-theme-light{
+		border-color: gray;
+	}
+	.backcolor-theme-heavy{
+		background-color: #111;
+	}
+	.backcolor-theme-light{
+		background-color: gray;
+	}
+	.fontcolor-theme-light{
+		color: gray;
+	}
+	.fontcolor-theme-heavy{
+		color: #111;
+	}
+	.close-cover {
+	    height: 100%;
+	    width: 0;
+	    position: fixed;
+	    z-index: 1;
+	    top: 0;
+	    left: 0;
+	    overflow-x: hidden;
+	    transition: 0.5s;
+	    padding-top: 60px;
+	    text-align:center;
+	}
+	.close-cover a {
+	    padding: 8px 8px 8px 32px;
+	    text-decoration: none;
+	    font-size: 25px;
+	    color: #818181;
+	    display: block;
+	    transition: 0.3s
+	}
+	.close-alert{
+		font-size: 50px;
+	}
+	.cover-block{
+		top: 5%; position: relative;
+		padding: 100px auto 0 auto;
+		margin: 0 auto;
+		height: 50%; width:20%;
+		border: 2px solid;
+		border-radius: 5px;
+	}
+	.cover-innerblock{
+		top: 10%; position: relative;
+		width: 75%;
+		margin: 0 auto;
+	}
+	.navbar{
+		margin-bottom: 0px;
+	}
+	.mainview{
+		width: 100%; height: 94.3%;		
+	}
+	.sidebar{
+		height: 100%;
+	    width: 15%;
+	    position: static;
+	    display: inline-block;
+	    float:left;
+	    z-index: 1;
+	    top: 0;
+	    left: 0;
+	    text-align:center;
+	    border-radius: 4px;
+	}
+	.maincontent{
 		display: inline-block;
-		position: absolute;
+		width:85%; height: 100%;
 	}
-	.treeIconRoot{
-		width: 0px; height: 0px;
-		border-radius: 100%;
-		background-color: #FF6200;
+	.slidemonth{
+		height: 75%; width: 5%;
+		display: inline-block;
+		position: relative;
+		border: 2px solid; border-radius: 5px;
+		text-align: center;
+		float: left;
+	}
+	.slidemonth:HOVER{
+		background-color: white;
+	}
+	.slleft{
+		left: 0; right: auto;
+	}
+	.slright{
+		left: auto; right: 0;
+	}
+	.calendar-cur-view{
+		width: 89%; height: 80%;
+		display: inline-block;
+		float: left;
+		text-align: center;
+		overflow: hidden;
+	}
+	.cnum{
+		position: relative;
+		display: inline-block;
+		height: 100%;
+		top:0;
+		font-size: 60px;
+		line-height: 90%;
+		text-align: center;
+	}
+	.calendar-container{
+		width: 70%; height: 80%;
+		margin: 0 auto;
+	}
+	.calendar-top{
+		width: 100%;
+		height: 10%;
+	}
+	.calendar-head{
+		height: 5%;
+		width: 100%;
+	}
+	.weeks{
+		height: 100%;
+		width: 14%;
+		display: inline-block;
+		margin: 1px 1px 1px 1px;
+		float: left;
+		border: 2px solid;
+		border-radius: 5px;
+		text-align: center;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	.calendar-weeks{
+		width: 100%;
+		height: 20%;
+	}
+	.calendar-days{
+		margin: 1px 1px 1px 1px;
+		display: inline-block;
+		width: 14%; height: 100%;
+		float: left;
+		background-color: white;
+		border: 2px solid;
+		border-radius: 5px;
+	}
+	.calendar-days-head{
+		height: 20%;
+		text-align: right;
+		padding: 0 20px 0 0;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.calendar-days-body{
+		border-top: 2px solid;
+		height: 80%;
+	}
+	.sunday{
+		background-color: salmon;
+	}
+	.midweek{
+		background-color: gray;
+	}
+	.saturday{
+		background-color: skyblue;
+	}
+	.not-current-month{
+		opacity: 0.5;
 	}
 </style>
 </head>
-<script src="js/jquery-3.1.0.js"></script>
-<body>
-	<div class="treeIconPlace">
-		<button class='treeIconRoot'>
-			<span class='glyphicon glyphicon-search' aria-hidden='true'></span>			
-		</button>
-	</div>
-	<div class="well">wkefhklfkls</div>
-	<div class="progress">
-	  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-	    <span>45% Complete</span>
+<body class="bordercolor-theme-light">
+	<!-- 화면 가리개 -->
+	<div id="myCloseCover" class="close-cover backcolor-theme-heavy">
+	  <a href="#" class="closebtn" onclick="closeCover()">&times;</a>
+	  <p class="close-alert fontcolor-theme-light">이 페이지는 닫혔습니다<br>사용자 암호를 입력하여 해제할수 있습니다</p>
+	  <div class="cover-block bordercolor-theme-light">
+	  	<div class="cover-innerblock">
+		  <input class="form-control" type="text" readonly="readonly" />
+		  <input class="form-control" type="password" />
+		  <button type="button" class="btn btn-lg btn-default backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">잠금해제</button>
+		</div>
 	  </div>
 	</div>
-<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-<script src="js/bootstrap.min.js"></script>
+	<!-- 화면 상단 네비 바 영역 -->
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">BitSchedule</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Page 1-1</a></li>
+	            <li><a href="#">Page 1-2</a></li>
+	            <li><a href="#">Page 1-3</a></li>
+	          </ul>
+	        </li>
+	        <li><a href="#">Page 2</a></li>
+	        <li><a href="#">Page 3</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#" onclick="openCover()"><span class="fa fa-eye-slash"></span> 화면가리기</a></li>
+	        <li><a href="#"><span class="fa fa-cog"></span> Config</a></li>
+	        <li><a href="#"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+	        <li><a href="#"><span class="fa fa-sign-in"></span> Login</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	  
+	<div class="mainview">
+	  <div class="sidebar backcolor-theme-heavy">
+	  	<!-- 화면 왼쪽 사이드 바 영역 -->
+	  </div>
+	  <div class="maincontent">
+	  	<!-- 상단 바, 사이드 바 제외한 본문 영역 -->
+	  	<div class="calendar-container">
+	  		<div class="calendar-top"><br><br><br>
+	  			<button class="slidemonth slleft backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-left fa-3x fontcolor-theme-heavy"></span></button>
+	  			<div class="calendar-cur-view">
+					<div class="calendar-year cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-year cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-year cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-year cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="cnum">&nbsp;</div>
+					<div class="calendar-month cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-month cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+				</div>
+	  			<button class="slidemonth slright backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-right fa-3x fontcolor-theme-heavy"></span></button>
+	  		</div>
+	  		<div class="calendar-head">
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks sunday">일</div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks">월</div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks">화</div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks">수</div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks">목</div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks">금</div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks saturday">토</div>
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head sunday not-current-month">1</div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek">2</div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek">3</div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek">4</div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek">5</div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head saturday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head sunday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head saturday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head sunday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head saturday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head sunday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head saturday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head sunday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head saturday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  	</div>
+	  </div>
+	</div>
 <script type="text/javascript">
+	/* 화면 가리개 접고 펴는 함수 */	
+	function openCover() {
+	    document.getElementById("myCloseCover").style.width = "100%";
+	}	
+	function closeCover() {
+	    document.getElementById("myCloseCover").style.width = "0";
+	}
+	/* 폰트 크기에 line-height %를 곱해서 한번에 움직여야할 좌표를 구함 */
+	var cnumHeight = parseInt($(".cnum").css("font-size")) * 0.9;
+	/* 현재년도 현재달 뽑아서 번호 슬라이드 위치 지정하는 함수*/
 	(function(){
-		$(".treeIconRoot").css("display", "none");
+		// 현재 날짜 구함
+		toDate = new Date();
+		curYear = toDate.getFullYear();
+		curMonth = (toDate.getMonth() + 1);
+		// 구한 년도와 달로 숫자판의 위치를 변경
+		datePos();
 	})();
-	$("html").contextmenu(function(e){
-		var divTop = e.clientY; //상단 좌표
-		var divLeft = e.clientX; //좌측 좌표
-		$(".treeIconRoot").css({"top": divTop, "left": divLeft, 
-			"display": "inline-block", "position": "absolute",
-			"width": 0, "height": 0})
-		.animate({width: 50, height: 50, left: divLeft -40, top: divTop -40}, 'fast');
-		wwww
-		/* alert("우클릭 금지됨");
-		console.dir(window);
-		console.dir($("html").on);
-		console.dir($("html").contextmenu); */
-		return false;
+	/* 숫자판 위치 바꾸는 함수 */
+	function datePos()
+	{
+		// 현재 달이 1월보다 낮아질때, 작년 12월로 거슬러간다.
+		if(curMonth < 1)
+		{
+			curMonth = 12;
+			curYear -= 1;
+		}
+		// 현재 달이 12월보다 높아질때, 내년 1월로 올라간다.
+		else if(curMonth > 12)
+		{
+			curMonth = 1;
+			curYear += 1;
+		}
+		// 9999년 이후에는 무슨일이 일어나는가
+		if(curYear > 9999)
+		{
+			curYear = "0001";
+		}
+		
+		// 현재 달이 한자릿수면 앞에 0 을 붙여서 두자릿수를 만들어줌
+		// 달 / 년 전환 후에 실행해주어야 함
+		if(curMonth < 10)
+		{
+			curMonth = "0" + curMonth;
+		}
+		else
+		{ 
+			curMonth = "" + curMonth;
+		}		
+		
+		curYear1000 = parseInt((""+curYear).charAt(0));
+		curYear100 = parseInt((""+curYear).charAt(1));
+		curYear10 = parseInt((""+curYear).charAt(2));
+		curYear1 = parseInt((""+curYear).charAt(3));
+		curMonth10 = parseInt(curMonth.charAt(0));
+		curMonth1 = parseInt(curMonth.charAt(1));
+		
+		curYear1000font = cnumHeight * parseInt((""+curYear).charAt(0));
+		curYear100font = cnumHeight * parseInt((""+curYear).charAt(1));
+		curYear10font = cnumHeight * parseInt((""+curYear).charAt(2));
+		curYear1font = cnumHeight * parseInt((""+curYear).charAt(3));
+		curMonth10font = cnumHeight * parseInt(curMonth.charAt(0));
+		curMonth1font = cnumHeight * parseInt(curMonth.charAt(1));
+		
+		$(".calendar-year:eq(0)").animate({"top": -curYear1000font}, 'slow');
+		$(".calendar-year:eq(1)").animate({"top": -curYear100font}, 'slow');
+		$(".calendar-year:eq(2)").animate({"top": -curYear10font}, 'slow');
+		$(".calendar-year:eq(3)").animate({"top": -curYear1font}, 'slow');
+		$(".calendar-month:eq(0)").animate({"top": -curMonth10font}, 'slow');
+		$(".calendar-month:eq(1)").animate({"top": -curMonth1font}, 'slow');		
+	}
+	/* 이전달 다음달 슬라이드 기능 함수 */
+	$(".slleft").click(function(){		
+		curMonth -= 1;
+		datePos();		
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(1)").css("top"));
 	});
-	$(".treeIconRoot").click(function(){
-		alert("눌림?");
+	$(".slright").click(function(){
+		// 왠지는 모르겠는데 달이 증가할때는 파싱해줘야 함
+		curMonth = parseInt(curMonth) + 1;
+		datePos();
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(0)").css("top"));
 	});
-	/* $("div").on("selectstart", function(event){
-		alert("이거를 막아야지 드래그가 금지된다..");
-		return false;
-	});
-	$("body").on("dragstart", function(event){
-		alert("드래그 이벤트");
-		return false;
-	}); */
 </script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!-- 
+가상 위치 선택자
+형식 :  
+:first-child        : 부모의 첫번째 자식일 경우 가능
+:last-child         : 부모의 마지막 자식일 경우 가능
+모든 속성으로 따져서 첫번째 혹은 마지막이어야 해당.
+ -->
+<html>
+<head>
+<meta charset="utf-8" />
+<title> 속성 선택 스타일 </title>
+<style type="text/css">
+	h1:FIRST-CHILD {
+		background-color: skyblue;
+	}
+	h1:Last-CHILD {
+		background-color: tomato;
+	}
+	p:Last-CHILD{
+		background-color: green;
+	}
+</style>                        
+</head>
+<body>
+    <p>주의사항</p> 
+    <div>
+	    <h1>1</h1>
+	    <h1>2</h1>
+	    <h1>3</h1>
+    </div>
+    <div>
+	    <h1>4</h1>
+	    <h1>5</h1>
+	    <h1>6</h1>
+    </div>
+    <p>주의사항</p>
+</body>
+</html>

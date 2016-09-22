@@ -1,0 +1,32 @@
+<!-- 
+가상 위치 선택자 -> 순서는 맨 앞이 1번이 된다.
+형식 :  
+:nth-child(n)  : 
+:nth-child(2n + 0)  : 
+:nth-child(2n + 1)  : 
+ -->
+<html>
+<head>
+<meta charset="utf-8" />
+<title> 속성 선택 스타일 </title>
+<style type="text/css">
+	h1:nth-child(n+1){
+		background-color: #23fb90;
+	}
+	h1:nth-child(2n+2){
+		background-color: #bb8910;
+	}
+	h1:nth-child(3n+2){
+		background-color: #ab89f0;
+	}
+</style>                        
+</head>
+<body>
+    <h1>1</h1>
+    <h1>2</h1>
+    <h1>3</h1>
+    <h1>4</h1>
+    <h1>5</h1>
+    <h1>6</h1>
+</body>
+</html>

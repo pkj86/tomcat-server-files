@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	*{margin: 0 0; padding: 0 0;}
+	label{
+		position:absolute;
+		left:1px; top:1px;
+		width: 50px; height: 30px;
+		border-radius:5px;
+		z-index:500;
+	}
+	input{
+		position:absolute;
+		left:0px;
+		transform-origin: right center;
+		border-radius:5px;
+		border:1px solid black;
+		height: 30px;		
+	}
+	input:focus + label{
+		transform: translateZ(0) translateX(-100%);
+	}
+	@keyframes shrink{
+		from{width:50px;}
+		to{width:0px;}		
+	}
+	@keyframes expand{
+	}
+</style>
+</head>
+<body>
+<div>
+	<input type="text" size="50" />
+	<label style="background-color: blue; color: white;">NAME</label>	
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!-- 
+    넘치는 텍스트 표기하기
+      -  text-overflow : 속성
+        : ellipsis(말줄임표 ... 표시)
+        
+    3가지 - width,  white-space,  overflow
+ -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>한줄텍스트</title>
+<style>
+	p{font-size: 1.5em; border: 1px solid black; padding: 10px; width:400px; 
+	/* 줄넘김 하지 말고 한줄로 */
+	white-space: nowrap;
+	/* 내용이 엘리먼트보다 길면 숨김*/ 
+	overflow: hidden;}
+	.over{text-overflow:ellipsis; }
+	table{width:400px; table-layout: fixed;}
+	table, td{
+		padding: 10px;
+		border: 1px solid black;
+		border-collapse: collapse;
+		white-space: nowrap;
+		overflow:hidden;
+		text-overflow:ellipsis;
+	}
+	span{
+		width:100px;
+		border: 1px solid black;
+		border-collapse: collapse;
+		white-space: nowrap;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		/* span 태그는 inline 형 태그이기 때문에 내용물에 맞추어 자동으로 크기가 지정됨.
+			말줄임을 위해 block 형으로 사용하고 싶다면 display 속성을 이용해서 변경.*/
+		display: block;
+	}
+</style>
+</head>
+
+<body>
+    <h2>최근 시장성 및 전망</h2>    
+    <p class="over">아들이 돌아왔다. 그것도 웬 여자애를 하나 데리고서.</p>
+
+    <table>
+        <tr>
+            <td>아들이 돌아왔다. 그것도 웬 여자애를 하나 데리고서. 에밀은 지난 몇 달 동안 아들이 무사히 돌아오길 간절히 기도했다.</td>
+        </tr>
+    </table>
+    
+    <div>
+        <span>아들이 돌아왔다. 그것도 웬 여자애를 하나 데리고서. 에밀은 지난 몇 달 동안 아들이 무사히 돌아오길 간절히 기도했다.</span>
+    </div>
+</body>
+</html>
