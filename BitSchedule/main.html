@@ -105,6 +105,7 @@
 	.maincontent{
 		display: inline-block;
 		width:85%; height: 100%;
+		overflow: auto;
 	}
 	.slidemonth{
 		height: 75%; width: 5%;
@@ -124,7 +125,7 @@
 		left: auto; right: 0;
 	}
 	.calendar-cur-view{
-		width: 89%; height: 80%;
+		width: 79%; height: 80%;
 		display: inline-block;
 		float: left;
 		text-align: center;
@@ -141,7 +142,7 @@
 	}
 	.calendar-container{
 		width: 70%; height: 80%;
-		margin: 0 auto;
+		margin: 0 auto;		
 	}
 	.calendar-top{
 		width: 100%;
@@ -165,19 +166,19 @@
 	}
 	.calendar-weeks{
 		width: 100%;
-		height: 20%;
+		height: 17.6%;
 	}
 	.calendar-days{
 		margin: 1px 1px 1px 1px;
 		display: inline-block;
 		width: 14%; height: 100%;
-		float: left;
+		float: left; left:0; top:0;
 		background-color: white;
 		border: 2px solid;
-		border-radius: 5px;
+		border-radius: 5px;		
 	}
 	.calendar-days-head{
-		height: 20%;
+		height: 25%;
 		text-align: right;
 		padding: 0 20px 0 0;
 		font-size: 20px;
@@ -198,6 +199,14 @@
 	}
 	.not-current-month{
 		opacity: 0.5;
+		transition: 0.5s
+	}
+	.current-day{
+		animation: curDay 1s infinite alternate;
+	}
+	@keyframes curDay{
+		from {opacity: 1.0;}
+		to {opacity: 0.2;}
 	}
 </style>
 </head>
@@ -255,8 +264,9 @@
 	  <div class="maincontent">
 	  	<!-- 상단 바, 사이드 바 제외한 본문 영역 -->
 	  	<div class="calendar-container">
-	  		<div class="calendar-top"><br><br><br>
+	  		<div class="calendar-top"><br>
 	  			<button class="slidemonth slleft backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-left fa-3x fontcolor-theme-heavy"></span></button>
+	  			<button class="slidemonth slleft backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-down fa-3x fontcolor-theme-heavy"></span></button>
 	  			<div class="calendar-cur-view">
 					<div class="calendar-year cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
 					<div class="calendar-year cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
@@ -266,6 +276,7 @@
 					<div class="calendar-month cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
 					<div class="calendar-month cnum">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
 				</div>
+				<button class="slidemonth slright backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-up fa-3x fontcolor-theme-heavy"></span></button>
 	  			<button class="slidemonth slright backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-right fa-3x fontcolor-theme-heavy"></span></button>
 	  		</div>
 	  		<div class="calendar-head">
@@ -279,23 +290,53 @@
 	  		</div>
 	  		<div class="calendar-weeks">
 		  		<div class="calendar-days bordercolor-theme-heavy">
-		  			<div class="calendar-days-head sunday not-current-month">1</div>
+		  			<div class="calendar-days-head sunday"></div>
 		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
 		  		</div>
 		  		<div class="calendar-days bordercolor-theme-heavy">
-		  			<div class="calendar-days-head midweek">2</div>
+		  			<div class="calendar-days-head midweek"></div>
 		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
 		  		</div>
 		  		<div class="calendar-days bordercolor-theme-heavy">
-		  			<div class="calendar-days-head midweek">3</div>
+		  			<div class="calendar-days-head midweek"></div>
 		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
 		  		</div>
 		  		<div class="calendar-days bordercolor-theme-heavy">
-		  			<div class="calendar-days-head midweek">4</div>
+		  			<div class="calendar-days-head midweek"></div>
 		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
 		  		</div>
 		  		<div class="calendar-days bordercolor-theme-heavy">
-		  			<div class="calendar-days-head midweek">5</div>
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head saturday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head sunday"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
+		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head midweek"></div>
 		  			<div class="calendar-days-body bordercolor-theme-heavy"></div>
 		  		</div>
 		  		<div class="calendar-days bordercolor-theme-heavy">
@@ -446,11 +487,12 @@
 		toDate = new Date();
 		curYear = toDate.getFullYear();
 		curMonth = (toDate.getMonth() + 1);
-		// 구한 년도와 달로 숫자판의 위치를 변경
+		curDate = toDate.getDate();
+		// 구한 년도와 달로 숫자판의 위치를 변경		
 		datePos();
 	})();
 	/* 숫자판 위치 바꾸는 함수 */
-	function datePos()
+	function datePos(modYear)
 	{
 		// 현재 달이 1월보다 낮아질때, 작년 12월로 거슬러간다.
 		if(curMonth < 1)
@@ -469,17 +511,24 @@
 		{
 			curYear = "0001";
 		}
+		else if(curYear < 1)
+		{
+			curYear = "9999";
+		}
 		
 		// 현재 달이 한자릿수면 앞에 0 을 붙여서 두자릿수를 만들어줌
 		// 달 / 년 전환 후에 실행해주어야 함
-		if(curMonth < 10)
+		if(modYear == undefined)
 		{
-			curMonth = "0" + curMonth;
+			if(curMonth < 10)
+			{
+				curMonth = "0" + curMonth;
+			}
+			else
+			{ 
+				curMonth = "" + curMonth;
+			}			
 		}
-		else
-		{ 
-			curMonth = "" + curMonth;
-		}		
 		
 		curYear1000 = parseInt((""+curYear).charAt(0));
 		curYear100 = parseInt((""+curYear).charAt(1));
@@ -495,6 +544,11 @@
 		curMonth10font = cnumHeight * parseInt(curMonth.charAt(0));
 		curMonth1font = cnumHeight * parseInt(curMonth.charAt(1));
 		
+		toDate.setFullYear(curYear, parseInt(curMonth)-1, toDate.getDate());		
+		
+		// 날짜 채워주는 함수 호출
+		fillDays();
+		
 		$(".calendar-year:eq(0)").animate({"top": -curYear1000font}, 'slow');
 		$(".calendar-year:eq(1)").animate({"top": -curYear100font}, 'slow');
 		$(".calendar-year:eq(2)").animate({"top": -curYear10font}, 'slow');
@@ -503,17 +557,128 @@
 		$(".calendar-month:eq(1)").animate({"top": -curMonth1font}, 'slow');		
 	}
 	/* 이전달 다음달 슬라이드 기능 함수 */
-	$(".slleft").click(function(){		
+	$(".slleft:eq(0)").click(function(){		
 		curMonth -= 1;
 		datePos();		
-		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(1)").css("top"));
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(1)").css("top"), toDate+"실제날짜");
 	});
-	$(".slright").click(function(){
+	$(".slright:eq(1)").click(function(){
 		// 왠지는 모르겠는데 달이 증가할때는 파싱해줘야 함
 		curMonth = parseInt(curMonth) + 1;
 		datePos();
-		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(0)").css("top"));
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(0)").css("top"), toDate+"실제날짜");
 	});
+	/* 작년 내년 슬라이드 기능 함수 */
+	$(".slleft:eq(1)").click(function(){		
+		curYear -= 1;
+		datePos(true);		
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(1)").css("top"), toDate+"실제날짜");
+	});
+	$(".slright:eq(0)").click(function(){
+		curYear += 1;
+		datePos(true);
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(0)").css("top"), toDate+"실제날짜");
+	});
+	/* 년/월에 따른 날짜 채워넣기 함수 */
+	function fillDays()
+	{
+		// 가지고 놀 년/월 정보를 현재 날짜로부터 받아옴
+		var fillDate = toDate;
+		
+		// 현재 달의 마지막 날짜
+		fillDate.setFullYear(toDate.getFullYear(), toDate.getMonth()+1, 0);
+		var maxDay = fillDate.getDate();
+		// 현재 달의 첫 날짜로 설정.
+		fillDate.setDate(1);
+		fillDate.setMonth(toDate.getMonth());
+		// 해당 달의 첫 날짜가 무슨 요일인가 반환. 0=일~6=토.
+		var firstDaysWeek = fillDate.getDay();
+		
+		// 이전 달의 최대 날짜
+		var preDate = new Date(fillDate.setDate(fillDate.getDate()-1));
+		var preMaxDay = preDate.getDate();
+		// 날짜 데이터를 set 하는 행위는 전역적(?) 으로 일어난다.
+		// 변수를 따로 두어도 회피할수 없음. 임시적으로 날짜 데이터를 변조할 경우엔 변조가 끝난후 원복시켜야 함
+		toDate.setDate(fillDate.getDate()+1);
+		toDate.setDate(curDate);
+		// 일단 전체 날짜를 싹 지워주고 다른달 클래스(투명화)부여.
+		for(var i = 0 ; i < 42 ; i++)
+		{
+			$(".calendar-days-head:eq("+i+")").html("").addClass("not-current-month");
+		}
+		
+		// 이전 달의 최대날짜 부터 거꾸로 채우기
+		for(var i = firstDaysWeek-1; i >= 0 ; i--)
+		{
+			$(".calendar-days-head:eq("+i+")").html(preMaxDay);
+			preMaxDay--;
+		}
+		
+		// 현재 달의 날짜를 채움
+		var curMday = 1;
+		for(var i = firstDaysWeek ; i <= maxDay + (firstDaysWeek-1) ; i++)
+		{
+			$(".calendar-days-head:eq("+i+")").html(curMday).removeClass("not-current-month");
+			if(curMday == toDate.getDate())
+			{
+				$(".calendar-days-head:eq("+i+")").addClass("current-day");
+			}
+			curMday++;
+		}
+		// 다음 달의 날짜를 채움
+		var nextMDay = 1;
+		for(var i = maxDay + (firstDaysWeek) ; i < 42 ; i++)
+		{
+			$(".calendar-days-head:eq("+i+")").html(nextMDay);
+			nextMDay++;
+		}
+		
+		/* 날짜 칸 드래그 이동하는 부분 */
+		var div_L = 0;
+		var div_T = 0;
+		var targetObj;
+
+		function getLeft(obj){
+		     return parseInt(obj.css("left"));
+		}
+		function getTop(obj){
+			console.log("top"+parseInt(obj.css("top")));
+		    return parseInt(obj.css("top"));
+		}
+		
+		function dragDiv(e)
+		{
+			targetObj.css("position", "relative");
+			var e_obj = window.event? window.event : e;
+		    dmvx = parseInt(e_obj.clientX + div_L);
+		    dmvy = parseInt(e_obj.clientY + div_T);
+		    targetObj.css("left", dmvx+"px");
+		    console.log(targetObj.css("left"));
+		    targetObj.css("top" , dmvy+"px");
+		    return false;
+		}
+		
+		$(".calendar-days").mousedown(function(e){			
+			targetObj = $(this);
+		    var e_obj = window.event? window.event : e;
+		    div_L = getLeft(targetObj) - e_obj.clientX;
+		    div_T = getTop(targetObj) - e_obj.clientY;
+		    
+		    document.onmousemove = dragDiv;
+		    document.onmouseup = stopDrag;
+		    if(e_obj.preventDefault) {e_obj.preventDefault();} 
+		});
+		
+		$(".calendar-days").mouseup(function(){
+			$(this).css("position", "static");
+		});
+		
+		function stopDrag()
+		{
+		    document.onmousemove = null;
+		    document.onmouseup = null;			
+		}
+	}
 </script>
 </body>
 </html>

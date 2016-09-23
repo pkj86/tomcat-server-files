@@ -4,7 +4,7 @@
 <configuration>
 
 	<!-- 설정파일에서 사용할 프로퍼티의 파일의 경로 지정: classpath -->
-	<properties resource="config/mybatis/db.properties"/>
+	<!-- <properties resource="config/mybatis/db.properties"/> -->
 	
 	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모  -->
 	<typeAliases>
@@ -12,10 +12,10 @@
 		<typeAlias alias="file" type="kr.co.mlec.jspboard.FileVO" />
 		<typeAlias alias="reply" type="kr.co.mlec.jspboard.ReplyVO" />
 		<typeAlias alias="user" type="kr.co.mlec.member.Member" />
-		<!--  <typeAlias alias="search" type="kr.co.mlec.member.SearchVO" /> -->
+	<!-- <typeAlias alias="search" type="kr.co.mlec.member.SearchVO" /> -->
 	</typeAliases>
 	
-	<environments default="development">
+	<!-- <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC"/>
 			<dataSource type="POOLED">
@@ -25,9 +25,9 @@
 				<property name="password" value="${password}"/>
 			</dataSource>
 		</environment>
-	</environments>
+	</environments> -->
 
-	<mappers>
+	<!-- <mappers>
 		<mapper resource="config/sqlmap/oracle/board.xml"/>
-	</mappers>
+	</mappers> -->
 </configuration>
