@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div{
+		width: 1000px; height: 200px;
+		border: 1px solid black;
+	}
+</style>
+</head>
+<body>
+	<h1>이미지를 드래그 하세요</h1>
+	<div id="zone1" ondragover="return false;" ondrop="imgDrop(event);">
+		<img id="img1" src="6.jpg" width="300" height="180" draggable="true" 
+			ondragstart="imgDragStart(event);" />
+		<img id="img2" src="3.jpg" width="300" height="180" draggable="true" 
+			ondragstart="imgDragStart(event);" />	
+	</div><br><br>
+	<div id="zone2" ondragover="return false;" ondrop="imgDrop(event);"></div>
+	
+	<script type="text/javascript">
+		function imgDragStart(event)
+		{
+			var dragId = event.target.id;
+			// dataTransfer 활용
+			event.dataTransfer.setData("imgId", dragId);
+			event.dataTransfer.setData("img", true);
+			
+			console.log("드래그 이미지 ID : " + dragId);
+		}
+		
+		function imgDrop(event)
+		{
+			var dropId = event.target.id;
+			var imgId = event.dataTransfer.getData("imgId");
+			if(event.target.nodeName.toLowerCase() == "img")
+			{
+				return;
+			}
+			console.log("드랍 이미지 ID : " + imgId);
+			
+			event.target.appendChild(document.querySelector("#" + imgId));				
+		}
+	</script>
+</body>
+</html>

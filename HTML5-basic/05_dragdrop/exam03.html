@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div{
+		width: 600px; height: 300px;
+		border: 5px dotted black;
+		overflow: auto;
+	}
+</style>
+</head>
+<body>
+	<h1>이미지를 드래그 하세요</h1>
+	<img id="img1" src="6.jpg" width="300" height="180" draggable="true" 
+		ondragstart="imgDragStart(event);" />
+	<img id="img2" src="3.jpg" width="300" height="180" draggable="true" 
+		ondragstart="imgDragStart(event);" />
+	<br>
+	<!-- ondrop 이벤트를 쓸려면 ondragover 이벤트를 막아야 한다 -->
+	<div id="zone" ondragover="return false;" ondrop="imgDrop(event);"></div>
+	
+	<script type="text/javascript">
+		function imgDragStart(event)
+		{
+			var dragId = event.target.id;
+			// dataTransfer 활용
+			event.dataTransfer.setData("imgId", dragId);
+			
+			console.log("드래그 이미지 ID : " + dragId);
+		}
+		
+		function imgDrop(event)
+		{
+			var dropId = event.target.id;
+			var imgId = event.dataTransfer.getData("imgId");
+			console.log("드랍 이미지 ID : " + imgId);
+			
+			event.target.appendChild(document.querySelector("#" + imgId).cloneNode());
+		}
+	</script>
+</body>
+</html>

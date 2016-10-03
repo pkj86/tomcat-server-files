@@ -1,0 +1,28 @@
+/**
+ *  출발지와 목적지의 거리를 km로 반환
+ *  구면 코사인 법칙 : 구면 삼각법
+ */
+function computeDistance(startCoords, destCoords) {
+	var startLatRads  = degreesToRadians(startCoords.latitude );
+	var startLongRads = degreesToRadians(startCoords.longitude);
+	var destLatRads   = degreesToRadians(destCoords.latitude  );
+	var destLongRads  = degreesToRadians(destCoords.longitude );
+
+	var Radius = 6371; // radius of the Earth in km
+	var distance = Math.acos(
+			       		Math.sin(startLatRads) * Math.sin(destLatRads) + 
+			       		Math.cos(startLatRads) * Math.cos(destLatRads) *
+			       		Math.cos(startLongRads - destLongRads)
+			       ) * Radius;
+
+	return distance;
+}
+/**
+ *  1(라디안) = 180 / Math.PI, 1(degree) = Math.PI / 180
+ *  반지름이 1일 경우 원의 전체 둘레 : 2 * Math.PI
+ */
+function degreesToRadians(degrees) {
+	radians = (degrees * Math.PI) / 180;
+	console.log(degrees  + " - " + (degrees * Math.PI) + " - " + radians);
+	return radians;
+}

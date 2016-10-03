@@ -1,0 +1,73 @@
+<!-- 
+	:disabled
+	:checked   -> checkbox, select, radio
+	:selected  -> select
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.1.0.js"></script>
+</head>
+<body>
+	<input type="text" name="name" value="name" /><br />
+	<input type="text" name="id" disabled="disabled" value="id" /><br />
+	
+	<input type="radio" name="gender" value="male" />남
+	<input type="radio" name="gender" value="female" checked="checked" />여
+	
+	<input type="checkbox" name="hobby" value="movie" />영화
+	<input type="checkbox" name="hobby" value="book" />책
+	<input type="checkbox" name="hobby" value="music" checked="checked" />음악
+	
+	<select name="selBox">
+		<option value="1번">1번</option>
+		<option value="2번" selected="selected">2번</option>
+		<option value="3번">3번</option>
+	</select>
+	
+	<button>확인</button>	
+	<script>
+		$("button").click(function(){
+			// disabled 상태인 엘리먼트의 name에 적힌 값을 가져옴 
+			//alert(":Disabled 항목의 값 : " + $(":disabled").attr("name"));
+			
+			// disabled 상태인 엘리먼트의 name에 적힌 값을 ddd 로 설정
+			//alert(":Disabled 항목의 값 : " + $(":disabled").attr("name", "ddd"));
+			
+			// checked 된 엘리먼트의 value 값을 가져옴	*주의 : select 엘리먼트의 selected 도 대상에 포함됨
+			// 대상이 여러개면 반복문을 돌려줘야함 안 돌리면 0 번 배열의 값만 꺼내짐
+			//alert(":Checked 항목의 값 : " + $(":checked").val());
+			
+			// 반복문 돌리기 .each 를 붙이면 셀렉터에 해당하는 객체 수만큼 뒤의 콜백함수가 호출됨
+			// for문 같은걸 일부러 써줄 필요가 없으니 편하다.
+			/* $(":checked").each(function(){
+				// $(this) = 선택된 객체 자신
+				alert($(this).val());
+			}); */
+			
+			// select 엘리먼트는 input 으로 시작하지 않는 것을 이용한 select 제외한 checked 만 골라내기
+			// 이름이나 아이디로 해도 되지만 가장 직관적이고 편한 방법임
+			/* $("input:checked").each(function(){
+				// $(this) = 선택된 객체 자신
+				alert($(this).val());
+			}); */
+			
+			//alert(":Selected 항목의 값 : " + $(":selected").val());
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

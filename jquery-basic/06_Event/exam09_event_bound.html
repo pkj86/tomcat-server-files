@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<style>
+	button {
+		margin: 5px;
+		font-size: 20px;
+		height: 50px;
+	}
+	</style>
+</head>
+<script src="../js/jquery-3.1.0.js"></script>
+<body>
+	<button onclick="test()">추가</button>
+    <div id="content">
+        <input type="checkbox" name="ck" value="1" />
+    </div>
+    <script type="text/javascript">
+    	// 현재 화면에 존재하는 checkbox 만 클릭 이벤트가 설정됨
+	    /* $("div > input:checkbox").click(function(){
+			alert($(this).val());
+		}); */
+    	$("div").on("click", "input:checkbox", function(){
+    		alert($(this).val());
+    	});
+    	
+    	function test()
+    	{
+    		var len = $("input:checkbox").length + 1;
+    		$("#content").append('<input type="checkbox" name="ck" value="' + len + '"/>');
+    	}
+    </script>
+</body>
+</html>

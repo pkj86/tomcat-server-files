@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form onsubmit="return false;">
+		키 : <input type="text" id="key"/>
+		값 : <input type="text" id="value"/>
+		<button id="addBtn">추가</button>
+		<button id="removeBtn">삭제</button>
+		<button id="clearBtn">전체삭제</button>
+		<button id="viewBtn">전체조회</button>
+		<ul id="dataView">
+		
+		</ul>
+	</form>
+	
+	<script type="text/javascript">
+		var addBtn = document.querySelector("#addBtn");
+		var removeBtn = document.querySelector("#removeBtn");
+		var clearBtn = document.querySelector("#clearBtn");
+		var viewBtn = document.querySelector("#viewBtn");
+		
+		addBtn.onclick = function(){
+			var key = document.querySelector("#key");
+			var value = document.querySelector("#value");
+			localStorage.setItem(key.value, value.value);
+		};
+		removeBtn.onclick = function(){
+			var key = document.querySelector("#key");
+			localStorage.removeItem(key.value);
+		};
+		clearBtn.onclick = function(){
+			localStorage.clear();
+		};
+		viewBtn.onclick = function(){
+			var viewr = document.querySelector("#dataView");
+			viewr.innerHTML = "";
+			for(var i = 0 ; i < localStorage.length ; i++)
+			{
+				var datas = localStorage.key(i);
+				viewr.innerHTML = viewr.innerHTML + "<li>키 : " + datas + " 값 : " + localStorage.getItem(datas) + "</li>";
+			}
+		};
+	</script>
+</body>
+</html>

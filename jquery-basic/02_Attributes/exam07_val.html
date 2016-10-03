@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>css selectors</title>
+<script src="../js/jquery-3.1.0.js"></script>
+</head>
+<body>
+	<p>
+		<input type="text" name="msg" />
+	</p>
+	<div>
+		<button>VAL 설정</button>
+		<button>VAL 추출</button>
+	</div>
+	<script>
+		$("button:eq(0)").click(function(){
+			$("input[name=msg]").val("jquery 설정");
+		});
+		$("button:eq(1)").click(function(){
+			alert($("input[name=msg]").val());
+		});	
+	</script>
+</body>
+</html>

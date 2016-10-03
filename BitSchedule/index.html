@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html class="bordercolor-theme-light">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BitSchedule</title>
+<script src="js/jquery-3.1.0.js"></script>
+<!-- w3의 CSS 들 -->
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 이쁜 폰트 쓸수있는 fontawesome -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css" />
+<!-- 컬러피커js -->
+<script src="js/jscolor.js"></script>
+<!-- class 속성 자체를 변경할수 있는 스크립트 -->
+<!-- changecss('속성변경할 클래스명', '변경할 속성', '변경된 속성'); -->
+<script type="text/javascript" src="http://www.shawnolson.net/scripts/public_smo_scripts.js"></script>
+<!-- 부가적인 테마 -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> -->
+<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+<!-- <script src="js/bootstrap.min.js"></script> -->
+<style type="text/css">
+	*{
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		box-sizing: border-box;
+	}
+	html, body{
+		width:100%; height: 100%;
+		overflow: hidden;
+		position: absolute;
+		border:10px solid;
+	}
+	.bordercolor-theme-heavy{
+		/* border-color: green; */
+	}
+	.bordercolor-theme-light{
+		/* border-color: red; */
+	}
+	.backcolor-theme-heavy{
+		/* background-color: #212121; */
+	}
+	.backcolor-theme-light{
+		/* background-color: gray; */
+	}
+	.fontcolor-theme-light{
+		/* color: red; */
+	}
+	.fontcolor-theme-heavy{
+		/* color: #212121; */
+	}
+	.bodycolor-theme{
+		/* background-color: #ffffff; */
+	}
+	.close-cover {
+	    height: 100%;
+	    width: 0;
+	    position: fixed;
+	    z-index: 1;
+	    top: 0;
+	    left: 0;
+	    overflow-x: hidden;
+	    transition: 0.5s;
+	    padding-top: 60px;
+	    text-align:center;
+	}
+	.close-cover a {
+	    padding: 8px 8px 8px 32px;
+	    text-decoration: none;
+	    font-size: 25px;
+	    color: #818181;
+	    display: block;
+	    transition: 0.3s
+	}
+	.close-alert{
+		font-size: 50px;
+	}
+	.cover-block{
+		top: 5%; position: relative;
+		padding: 100px auto 0 auto;
+		margin: 0 auto;
+		height: 50%; width:20%;
+		border: 2px solid;
+		border-radius: 5px;
+	}
+	.cover-innerblock{
+		top: 10%; position: relative;
+		width: 75%;
+		margin: 0 auto;
+	}
+	.navbar{
+		margin-bottom: 0px;
+		border: 1px solid black;
+	}
+	.mainview{
+		width: 100%; height: 94.3%;		
+	}
+	.sidebar{
+		height: 100%;
+	    width: 15%;
+	    position: static;
+	    display: inline-block;
+	    float:left;
+	    z-index: 1;
+	    top: 0;
+	    left: 0;
+	    text-align:center;
+	    border-radius: 4px;
+	    border: 1px solid black;
+	}
+	.maincontent{
+		display: inline-block;
+		width:85%; height: 100%;
+		overflow: auto;
+	}
+	.slidemonth{
+		height: 75%; width: 5%;
+		display: inline-block;
+		position: relative;
+		border: 2px solid; border-radius: 5px;
+		text-align: center;
+		float: left;
+	}
+	.slidemonth:HOVER{
+		background-color: white;
+	}
+	.slleft{
+		left: 0; right: auto;
+	}
+	.slright{
+		left: auto; right: 0;
+	}
+	.calendar-cur-view{
+		width: 79%; height: 80%;
+		display: inline-block;
+		float: left;
+		text-align: center;
+		overflow: hidden;
+	}
+	.cnum{
+		position: relative;
+		display: inline-block;
+		height: 100%;
+		top:0;
+		font-size: 60px;
+		line-height: 90%;
+		text-align: center;
+	}
+	.calendar-container{
+		width: 70%; height: 80%;
+		margin: 0 auto;		
+	}
+	.calendar-top{
+		width: 100%;
+		height: 10%;
+	}
+	.calendar-head{
+		height: 5%;
+		width: 100%;
+	}
+	.weeks{
+		height: 100%;
+		width: 14%;
+		display: inline-block;
+		margin: 1px 1px 1px 1px;
+		float: left;
+		border: 2px solid;
+		border-radius: 5px;
+		text-align: center;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	.calendar-weeks{
+		width: 100%;
+		height: 17.6%;
+	}
+	.calendar-days{
+		margin: 1px 1px 1px 1px;
+		display: inline-block;
+		width: 14%; height: 100%;
+		float: left; left:0; top:0;
+		border: 2px solid;
+		border-radius: 5px;		
+	}
+	.calendar-days-head{
+		height: 25%;
+		border-top-right-radius: 2px;
+		border-top-left-radius: 2px;
+		text-align: right;
+		padding: 0 20px 0 0;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.calendar-days-body{		
+		border-top: 5px double;
+		border-bottom-right-radius: 4px;
+		border-bottom-left-radius: 4px;
+		height: 75%;
+	}
+	.sunday{
+		background-color: salmon;
+	}
+	.midweek{
+		/* background-color: gray; */
+	}
+	.saturday{
+		background-color: skyblue;
+	}
+	.not-current-month{
+		opacity: 0.5;
+		transition: 0.5s
+	}
+	.current-day{
+		animation: curDay 1s infinite alternate;
+	}
+	@keyframes curDay{
+		from {opacity: 1.0;}
+		to {opacity: 0.2;}
+	}
+	/* 설정창 */
+	.modal-body{
+		height: 600px;
+	}
+	/* 날짜칸 클릭시 튀어나오는 가림막과 팝업창 세트 */
+	.fader{
+		position: absolute;
+		left: 0; top: 0;
+		display: inline-block;
+		width: 100%; height: 100%;
+		opacity: 0.5;
+		background-color: black;
+		z-index: 10000;
+	}
+	.daydetail{
+		position: absolute;
+		display: inline-block;
+		width: 30%; height: 90%;
+		top: 5%;
+		background-color: white;
+		z-index: 10001;
+		border: 10px double black;		
+		border-top-left-radius: 20px;
+		border-bottom-right-radius: 20px;
+	}
+	.daydetail-head{
+		width: 100%; height: 5%;
+		border-top-left-radius: 10px;
+		text-align: center;
+		font-size: 40px;
+		line-height: 100%;
+	}
+	.daydetail-body{
+		border-top: 5px double;
+		width: 100%; height: 85%;
+		overflow-y: auto;
+	}
+	.daydetail-footer{
+		display: inherit;
+		border-top: 2px solid;
+		width: 100%; height: 10%;
+		text-align: right;
+		padding: 3% 5% 0 0;
+		border-bottom-right-radius: 10px;
+	}
+	.panel-group{
+		margin-bottom: 0px;
+	}
+	.panel+.panel{
+		margin-top: 1px !important;
+	}
+	.panel-heading{		
+		font-size: 40px;
+		height: 40px;
+		border-radius: 0;
+		border-left: 20px solid;
+		border-left-color: rgba(0, 0, 0, 1) !important;
+		background-color: rgba(0, 0, 0, 0.3) !important;
+	}	
+	.panel-body{
+		padding-left: 0;
+		padding-top: 0;
+		padding-right: 0;
+	}
+	.container{
+		padding-left:0;
+		padding-right: 0;
+	}
+	/* 사이드 바 */
+	.category-container{
+		top: 5%;
+		width: 100%; height: 40%;
+		text-align: center;
+		display: inline-block;
+		position: relative;
+	}
+	.category-border{
+		width: 80%; height: 100%;
+		border: 5px solid;
+		border-radius: 10px;
+		display: inline-block;
+		overflow: hidden;
+		font-size: 20px;
+	}
+	.category-inner{
+		width: 100%; height: 92%;
+		text-align:justify;
+		padding: 5px 5px 5px 10px;
+		background-color: #C6C6C6;
+		white-space: nowrap;
+		overflow: auto;
+	}
+	/* 회원가입창 */
+	.joinbody{
+		text-align: center;
+	}
+	.joincenter{
+		width: 80%; height: 90%;
+		border: 5px solid white;
+		display: inline-block;
+		text-align: center;
+		padding: 30px 0 0 0;
+	}
+	#FBimage{
+		width: 30%; height: 30%;
+		display: inline-block;
+	}
+</style>
+</head>
+<body class="bordercolor-theme-light">
+	<!-- 화면 가리개 -->
+	<div id="myCloseCover" class="close-cover backcolor-theme-heavy">
+	  <a href="#" class="closebtn" onclick="closeCover()">&times;</a>
+	  <p class="close-alert fontcolor-theme-light">이 페이지는 닫혔습니다<br>사용자 암호를 입력하여 해제할수 있습니다</p>
+	  <div class="cover-block bordercolor-theme-light">
+	  	<div class="cover-innerblock">
+		  <input class="form-control" type="text" readonly="readonly" />
+		  <input class="form-control" type="password" />
+		  <button type="button" class="btn btn-lg btn-default backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">잠금해제</button>
+		</div>
+	  </div>
+	</div>
+	<!-- 화면 상단 네비 바 영역 -->
+	<nav class="navbar navbar-inverse backcolor-theme-heavy">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand fontcolor-theme-light" href="#">BitSchedule</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Page 1-1</a></li>
+	            <li><a href="#">Page 1-2</a></li>
+	            <li><a href="#">Page 1-3</a></li>
+	          </ul>
+	        </li>
+	        <li><a href="#" class="fontcolor-theme-light non" onclick="viewMonth()">월간 일정 보기</a></li>
+	        <li><a href="#" class="fontcolor-theme-light non" onclick="viewWeek()">주간 일정 보기</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#" class="fontcolor-theme-light non" onclick="openCover()"><span class="fa fa-eye-slash fontcolor-theme-light"></span> 화면가리기</a></li>
+	        <li><a href="#" class="fontcolor-theme-light non" data-toggle="modal" data-target="#configModal"><span class="fa fa-cog fontcolor-theme-light"></span> Config</a></li>
+	        <li><a href="#" class="fontcolor-theme-light non" data-toggle="modal" data-target="#joinModal"><span class="fa fa-user-plus fontcolor-theme-light"></span> Sign Up</a></li>
+	        <li><a href="#" class="fontcolor-theme-light non"><span class="fa fa-sign-in fontcolor-theme-light"></span> Login</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	
+	<!-- 회원가입 모달창 -->
+	<div class="modal fade" id="joinModal" role="dialog">
+	  <div class="modal-dialog">	    
+	    <!-- Modal content-->
+	    <div class="modal-content backcolor-theme-heavy bordercolor-theme-light">
+	      <div class="modal-header bordercolor-theme-light">
+	        <h4 class="modal-title fontcolor-theme-light">회원 가입</h4>
+	      </div>
+	      <div class="modal-body joinbody">
+	        <!-- 회원가입 모달창 내용 부분 -->
+	        <div class="joincenter fontcolor-theme-light">
+	        	페이스북으로부터 계정 얻어오기<br>
+	        	<div class="fb-login-button" scope="public_profile,email" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+				<br>
+				<img alt="" src="" id="FBimage" /><br>
+				<div id="status">
+				</div>
+			</div>
+	      </div>
+	      <div class="modal-footer bordercolor-theme-light">
+	        <button type="button" class="btn btn-default backcolor-theme-heavy fontcolor-theme-light bordercolor-theme-light" data-dismiss="modal">확인</button>
+	        <button type="button" class="btn btn-default backcolor-theme-heavy fontcolor-theme-light bordercolor-theme-light" data-dismiss="modal">취소</button>
+	      </div>
+	    </div>	      
+	  </div>
+	</div>
+	
+	<!-- 설정 모달창 -->
+	<div class="modal fade" id="configModal" role="dialog">
+	  <div class="modal-dialog">	    
+	    <!-- Modal content-->
+	    <div class="modal-content backcolor-theme-heavy bordercolor-theme-light">
+	      <div class="modal-header bordercolor-theme-light">
+	        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+	        <h4 class="modal-title fontcolor-theme-light">Config</h4>
+	      </div>
+	      <div class="modal-body">
+	        <!-- 설정 모달창 내용 부분 -->
+	        <ul id="configTab" class="nav nav-tabs" role="tablist">
+		    	<li class="fontcolor-theme-light bordercolor-theme-light backcolor-heavy active"><a href="#account" id="account-tab" role="tab" data-toggle="tab" aria-controls="account" >계정</a></li>
+		    	<li class="fontcolor-theme-light bordercolor-theme-light backcolor-heavy" role="presentation"><a href="#theme" role="tab" id="theme-tab" data-toggle="tab" aria-controls="theme">테마</a></li>
+		    </ul>
+		    <div id="configTabContent" class="tab-content">
+		    	<div class="tab-pane fade in active fontcolor-theme-light" id="account">
+		        	<div>계정 설정화면</div>
+		      	</div>
+		    	<div class="tab-pane fade" id="theme"><br>
+		    		<div class="dropdown">
+					  <button class="btn dropdown-toggle fontcolor-theme-light backcolor-theme-heavy bordercolor-theme-light" type="button" data-toggle="dropdown">테마 선택
+					  <span class="caret"></span></button>
+					  <ul class="dropdown-menu" id="themeDrops">
+					  </ul>
+					</div>
+			   		<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">연한 테두리색 : <input class="jscolor" id="bordercolor-light" onchange="modColor('boli')"></div>
+			       	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">진한 테두리색 : <input class="jscolor" id="bordercolor-heavy" onchange="modColor('bohe')"></div>
+			      	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">연한 바탕색 : <input class="jscolor" id="backcolor-light" onchange="modColor('bali')"></div>
+			      	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">진한 바탕색 : <input class="jscolor" id="backcolor-heavy" onchange="modColor('bahe')"></div>
+			      	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">연한 글자색 : <input class="jscolor" id="fontcolor-light" onchange="modColor('foli')"></div>
+			      	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">진한 글자색 : <input class="jscolor" id="fontcolor-heavy" onchange="modColor('fohe')"></div>
+			      	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">날짜 바탕색 : <input class="jscolor" id="kancolor" onchange="modColor('cady')"></div>
+			      	<div class="backcolor-theme-heavy bordercolor-theme-light fontcolor-theme-light">달력 바탕색 : <input class="jscolor" id="calcolor" onchange="modColor('caba')"></div>
+		    	</div>
+		 	</div>
+	      </div>
+	      <div class="modal-footer bordercolor-theme-light">
+	        <button type="button" class="btn btn-default backcolor-theme-heavy fontcolor-theme-light bordercolor-theme-light" data-dismiss="modal">확인</button>
+	        <button type="button" class="btn btn-default backcolor-theme-heavy fontcolor-theme-light bordercolor-theme-light" data-dismiss="modal">취소</button>
+	      </div>
+	    </div>	      
+	  </div>
+	</div>
+	
+	<!-- 날짜별 상세정보 모달창 -->
+	<!-- 가림막 -->
+	<div class="fader">
+	</div>
+	<div class="daydetail bordercolor-theme-light">
+		<div class="daydetail-head fontcolor-theme-heavy"></div>
+		<div class="container daydetail-body bodycolor-theme bordercolor-theme-heavy">
+			<!-- 바디 내부의 개별 날짜에 대한 어코디언 버튼 -->
+			<div class="panel-group" id="accordion">
+				<div id="schedule1" class="panel panel-default">
+			    	<div class="panel-heading">
+			        	<h4 class="panel-title">
+			          		<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">09:00~10:00 아침일정1</a>
+			        	</h4>
+			    	</div>
+			    	<div id="collapse1" class="panel-collapse collapse">
+			     		<div style="height: 570px;" class="panel-body">
+			     			<ul id="myTab" class="nav nav-tabs" role="tablist">
+						    	<li class="active"><a href="#content" id="content-tab" role="tab" data-toggle="tab" aria-controls="content" >일반</a></li>
+						    	<li role="presentation"><a href="#map" role="tab" id="map-tab" data-toggle="tab" aria-controls="map">지도</a></li>
+						    	<li role="presentation"><a href="#trafic" role="tab" id="trafic-tab" data-toggle="tab" aria-controls="trafic">길찾기</a></li>
+						    	<li role="presentation"><a href="#chart" role="tab" id="chart-tab" data-toggle="tab" aria-controls="chart">통계</a></li>
+						    </ul>
+						    <div id="myTabContent" class="tab-content">
+						    	<div class="tab-pane fade in active" id="content">
+						        	<div>일반적인 내용 기입 페이지</div>
+						      	</div>
+						    	<div class="tab-pane fade" id="map" aria-labelledBy="map-tab">
+						        	<p>지도 위치 표시 페이지</p>
+						    	</div>
+						    	<div class="tab-pane fade" id="trafic" aria-labelledBy="trafic-tab">
+						        	<p>교통 길찾기 정보 페이지</p>
+						    	</div>
+						    	<div class="tab-pane fade" id="chart" aria-labelledBy="chart-tab">
+						        	<p>통계 그래프 페이지</p>
+						    	</div>
+						 	</div>
+						</div>
+		     		</div>
+			    </div>
+			</div>
+		</div>
+		<div class="daydetail-footer bodycolor-theme bordercolor-theme-heavy">
+			<button type="button" class="btn btn-default backcolor-theme-light fontcolor-theme-heavy bordercolor-theme-heavy">확인</button>
+	        <button type="button" class="btn btn-default backcolor-theme-light fontcolor-theme-heavy bordercolor-theme-heavy">취소</button>
+		</div>
+	</div>
+	  
+	<div class="mainview">
+	  <div class="sidebar backcolor-theme-heavy bordercolor-theme-heavy">
+	  	<!-- 화면 왼쪽 사이드 바 영역 -->
+	  	<div class="category-container">
+	  		<div class="category-border fontcolor-theme-light bordercolor-theme-light">
+	  			카테고리 관리창
+	  			<div class="category-inner fontcolor-theme-heavy well well-lg">			    	
+				    <input type="checkbox" id="chk1" class="w3-check"/>
+			    	<div class="w3-tag w3-round" style="padding:3px; background-color: blue;">
+					  <div class="w3-tag w3-round w3-border w3-border-white" style="font-size: 20px; background-color: blue;">
+					  개인일정
+					  </div>
+					</div><br>
+			    	<input type="checkbox" id="chk1" class="w3-check"/>
+			    	<div class="w3-tag w3-round w3-green" style="padding:3px">
+					  <div class="w3-tag w3-round w3-green w3-border w3-border-white" style="font-size: 20px;">
+					  개인일정
+					  </div>
+					</div><br>
+					<input type="checkbox" id="chk1" class="w3-check"/>
+			    	<div class="w3-tag w3-round w3-green" style="padding:3px; background-color: red !important;">
+					  <div class="w3-tag w3-round w3-green w3-border w3-border-white" style="font-size: 20px; background-color: red !important;">
+					  개인일정
+					  </div>
+					</div><br>
+					<input type="checkbox" id="chk1" class="w3-check"/>
+			    	<div class="w3-tag w3-round w3-green" style="padding:3px">
+					  <div class="w3-tag w3-round w3-green w3-border w3-border-white" style="font-size: 20px;">
+					  개인일정
+					  </div>
+					</div><br>
+					<input type="checkbox" id="chk1" class="w3-check"/>
+			    	<div class="w3-tag w3-round w3-green" style="padding:3px">
+					  <div class="w3-tag w3-round w3-green w3-border w3-border-white" style="font-size: 20px;">
+					  개인일정
+					  </div>
+					</div><br>
+	  				업무<br>
+	  				자유시간<br>
+	  				놀이<br>
+	  				게임<br>
+	  				스포츠<br>
+	  				노닥거리기<br>
+	  				쇼핑<br>
+	  				먹방<br>
+	  				몰라<br>
+	  				ㅅㅂ<br>
+	  				개인일정<br>
+	  				업무<br>
+	  				자유시간<br>
+	  				놀이<br>
+	  				게임<br>
+	  				스포츠<br>
+	  				노닥거리기<br>
+	  				쇼핑<br>
+	  				먹방<br>
+	  				몰라<br>
+	  				ㅅㅂ<br>
+	  				개인일정<br>
+	  				업무<br>
+	  				자유시간<br>
+	  				놀이<br>
+	  				게임<br>
+	  				스포츠<br>
+	  				노닥거리기<br>
+	  				쇼핑<br>
+	  				먹방<br>
+	  				몰라<br>
+	  				ㅅㅂ<br>개인일정<br>
+	  				업무<br>
+	  				자유시간<br>
+	  				놀이<br>
+	  				게임<br>
+	  				스포츠<br>
+	  				노닥거리기<br>
+	  				쇼핑<br>
+	  				먹방<br>
+	  				몰라<br>
+	  				ㅅㅂ<br>
+	  			</div>
+	  		</div>
+	  	</div>
+	  </div>
+	  <div class="maincontent">
+	  	<!-- 상단 바, 사이드 바 제외한 본문 영역 -->
+	  	<div class="calendar-container">
+	  		<div class="calendar-top"><br>
+	  			<button class="slidemonth slleft backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-left fa-3x fontcolor-theme-heavy"></span></button>
+	  			<button class="slidemonth slleft backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-down fa-3x fontcolor-theme-heavy"></span></button>
+	  			<div class="calendar-cur-view">
+					<div class="calendar-year cnum fontcolor-theme-heavy">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-year cnum fontcolor-theme-heavy">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-year cnum fontcolor-theme-heavy">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-year cnum fontcolor-theme-heavy">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="cnum">&nbsp;</div>
+					<div class="calendar-month cnum fontcolor-theme-heavy">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+					<div class="calendar-month cnum fontcolor-theme-heavy">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+				</div>
+				<button class="slidemonth slright backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-up fa-3x fontcolor-theme-heavy"></span></button>
+	  			<button class="slidemonth slright backcolor-theme-light bordercolor-theme-heavy"><span class="fa fa-chevron-right fa-3x fontcolor-theme-heavy"></span></button>
+	  		</div>
+	  		<div class="calendar-head">
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks sunday"><label class="fontcolor-theme-heavy">일</label></div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks"><label class="fontcolor-theme-heavy">월</label></div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks"><label class="fontcolor-theme-heavy">화</label></div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks"><label class="fontcolor-theme-heavy">수</label></div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks"><label class="fontcolor-theme-heavy">목</label></div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks"><label class="fontcolor-theme-heavy">금</label></div>
+	  			<div class="backcolor-theme-light bordercolor-theme-heavy weeks saturday"><label class="fontcolor-theme-heavy">토</label></div>
+	  		</div>
+	  		<!-- <span class="fa fa-globe"></span> -->
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy sunday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy saturday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy sunday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy saturday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy sunday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy saturday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy sunday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy saturday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy sunday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy saturday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  		<div class="calendar-weeks">
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy sunday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy midweek"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>
+		  		<div class="calendar-days bordercolor-theme-heavy">
+		  			<div class="calendar-days-head fontcolor-theme-heavy saturday"></div>
+		  			<div class="calendar-days-body bodycolor-theme bordercolor-theme-heavy"></div>
+		  		</div>  		
+	  		</div>
+	  	</div>
+	  </div>
+	</div>
+<script type="text/javascript">
+	/* 페이스북 로그인 처리 부분 */
+	/* (function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.7&appId=1570743826284569";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk')); */
+	// This is called with the results from from FB.getLoginStatus().
+	function statusChangeCallback(response) {
+		console.log('statusChangeCallback');
+	    console.log(response);
+	    // The response object is returned with a status field that lets the
+	    // app know the current login status of the person.
+	    // Full docs on the response object can be found in the documentation
+	    // for FB.getLoginStatus().
+	    if (response.status === 'connected') {
+	      // 페이스북 로그인 성공
+	      testAPI();
+	    } else if (response.status === 'not_authorized') {
+	      // 페이스북 로그아웃 앱
+	      document.getElementById('status').innerHTML = 'Please log ' +
+	        'into this app.';
+	    } else {
+	      // 페이스북 로그아웃
+	      $("#FBimage").toggle();
+	      document.getElementById('status').innerHTML = 'Please log ' +
+	        'into Facebook.';
+	    }
+	  }
+	
+	  // This function is called when someone finishes with the Login
+	  // Button.  See the onlogin handler attached to it in the sample
+	  // code below.
+	  function checkLoginState() {
+	    FB.getLoginStatus(function(response) {
+	      statusChangeCallback(response);
+	    });
+	  }
+	
+	  window.fbAsyncInit = function(){
+	  	FB.init({
+	    appId      : '1570743826284569',
+	    cookie     : true,  // enable cookies to allow the server to access 
+	                        // the session
+	    xfbml      : true,  // parse social plugins on this page
+	    version    : 'v2.5' // use graph api version 2.5
+	  });
+	
+	  // Now that we've initialized the JavaScript SDK, we call 
+	  // FB.getLoginStatus().  This function gets the state of the
+	  // person visiting this page and can return one of three states to
+	  // the callback you provide.  They can be:
+	  //
+	  // 1. Logged into your app ('connected')
+	  // 2. Logged into Facebook, but not your app ('not_authorized')
+	  // 3. Not logged into Facebook and can't tell if they are logged into
+	  //    your app or not.
+	  //
+	  // These three cases are handled in the callback function.
+	
+	  FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	  });
+	
+	  };
+	
+	  // Load the SDK asynchronously
+	  (function(d, s, id) {
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) return;
+	    js = d.createElement(s); js.id = id;
+	    js.src = "//connect.facebook.net/en_US/sdk.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+	
+	  // Here we run a very simple test of the Graph API after login is
+	  // successful.  See statusChangeCallback() for when this call is made.
+	  function testAPI() {
+	    console.log('Welcome!  Fetching your information.... ');
+	    FB.api('/me', function(response) {
+	  		console.log('Successful login for: ' + response.name);
+	      	$("#FBimage").toggle();
+		  	$("#FBimage").attr("src", "http://graph.facebook.com/" + response.id + "/picture");
+	      	document.getElementById('status').innerHTML =
+	        'Thanks for logging in, ' + response.name + '!';
+	    });
+ 	}
+	/* 화면 가리개 접고 펴는 함수 */	
+	function openCover() {
+	    document.getElementById("myCloseCover").style.width = "100%";
+	}	
+	function closeCover() {
+	    document.getElementById("myCloseCover").style.width = "0";
+	}
+	/* 폰트 크기에 line-height %를 곱해서 한번에 움직여야할 좌표를 구함 */
+	var cnumHeight = parseInt($(".cnum").css("font-size")) * 0.9;
+	/* 현재년도 현재달 뽑아서 번호 슬라이드 위치 지정하는 함수*/
+	(function(){
+		// 현재 날짜 구함
+		toDate = new Date();
+		curYear = toDate.getFullYear();
+		curMonth = (toDate.getMonth() + 1);
+		curDate = toDate.getDate();
+		// 구한 년도와 달로 숫자판의 위치를 변경		
+		datePos();
+	})();
+	/* 숫자판 위치 바꾸는 함수 */
+	function datePos(modYear)
+	{
+		// 현재 달이 1월보다 낮아질때, 작년 12월로 거슬러간다.
+		if(curMonth < 1)
+		{
+			curMonth = 12;
+			curYear -= 1;
+		}
+		// 현재 달이 12월보다 높아질때, 내년 1월로 올라간다.
+		else if(curMonth > 12)
+		{
+			curMonth = 1;
+			curYear += 1;
+		}
+		// 9999년 이후에는 무슨일이 일어나는가
+		if(curYear > 9999)
+		{
+			curYear = "0001";
+		}
+		else if(curYear < 1)
+		{
+			curYear = "9999";
+		}
+		
+		// 현재 달이 한자릿수면 앞에 0 을 붙여서 두자릿수를 만들어줌
+		// 달 / 년 전환 후에 실행해주어야 함
+		if(modYear == undefined)
+		{
+			if(curMonth < 10)
+			{
+				curMonth = "0" + curMonth;
+			}
+			else
+			{ 
+				curMonth = "" + curMonth;
+			}			
+		}
+		
+		curYear1000 = parseInt((""+curYear).charAt(0));
+		curYear100 = parseInt((""+curYear).charAt(1));
+		curYear10 = parseInt((""+curYear).charAt(2));
+		curYear1 = parseInt((""+curYear).charAt(3));
+		curMonth10 = parseInt(curMonth.charAt(0));
+		curMonth1 = parseInt(curMonth.charAt(1));
+		
+		curYear1000font = cnumHeight * parseInt((""+curYear).charAt(0));
+		curYear100font = cnumHeight * parseInt((""+curYear).charAt(1));
+		curYear10font = cnumHeight * parseInt((""+curYear).charAt(2));
+		curYear1font = cnumHeight * parseInt((""+curYear).charAt(3));
+		curMonth10font = cnumHeight * parseInt(curMonth.charAt(0));
+		curMonth1font = cnumHeight * parseInt(curMonth.charAt(1));
+		
+		toDate.setFullYear(curYear, parseInt(curMonth)-1, toDate.getDate());		
+		
+		// 날짜 채워주는 함수 호출
+		fillDays();
+		
+		$(".calendar-year:eq(0)").animate({"top": -curYear1000font}, 'slow');
+		$(".calendar-year:eq(1)").animate({"top": -curYear100font}, 'slow');
+		$(".calendar-year:eq(2)").animate({"top": -curYear10font}, 'slow');
+		$(".calendar-year:eq(3)").animate({"top": -curYear1font}, 'slow');
+		$(".calendar-month:eq(0)").animate({"top": -curMonth10font}, 'slow');
+		$(".calendar-month:eq(1)").animate({"top": -curMonth1font}, 'slow');		
+	}
+	/* 이전달 다음달 슬라이드 기능 함수 */
+	$(".slleft:eq(0)").click(function(){		
+		curMonth -= 1;
+		datePos();		
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(1)").css("top"), toDate+"실제날짜");
+	});
+	$(".slright:eq(1)").click(function(){
+		// 왠지는 모르겠는데 달이 증가할때는 파싱해줘야 함
+		curMonth = parseInt(curMonth) + 1;
+		datePos();
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(0)").css("top"), toDate+"실제날짜");
+	});
+	/* 작년 내년 슬라이드 기능 함수 */
+	$(".slleft:eq(1)").click(function(){		
+		curYear -= 1;
+		datePos(true);		
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(1)").css("top"), toDate+"실제날짜");
+	});
+	$(".slright:eq(0)").click(function(){
+		curYear += 1;
+		datePos(true);
+		console.log(curMonth10, curMonth1, curYear+"년", curMonth+"월", $(".calendar-month:eq(0)").css("top"), toDate+"실제날짜");
+	});
+	/* 년/월에 따른 날짜 채워넣기 함수 */
+	function fillDays()
+	{
+		// 가지고 놀 년/월 정보를 현재 날짜로부터 받아옴
+		var fillDate = toDate;
+		
+		// 현재 달의 마지막 날짜
+		fillDate.setFullYear(toDate.getFullYear(), toDate.getMonth()+1, 0);
+		var maxDay = fillDate.getDate();
+		// 현재 달의 첫 날짜로 설정.
+		fillDate.setDate(1);
+		fillDate.setMonth(toDate.getMonth());
+		// 해당 달의 첫 날짜가 무슨 요일인가 반환. 0=일~6=토.
+		var firstDaysWeek = fillDate.getDay();
+		
+		// 이전 달의 최대 날짜
+		var preDate = new Date(fillDate.setDate(fillDate.getDate()-1));
+		var preMaxDay = preDate.getDate();
+		// 날짜 데이터를 set 하는 행위는 전역적(?) 으로 일어난다.
+		// 변수를 따로 두어도 회피할수 없음. 임시적으로 날짜 데이터를 변조할 경우엔 변조가 끝난후 원복시켜야 함
+		toDate.setDate(fillDate.getDate()+1);
+		toDate.setDate(curDate);
+		toDate = new Date();
+		// 일단 전체 날짜를 싹 지워주고 다른달임을 나타내는 클래스(투명화)부여.
+		for(var i = 0 ; i < 42 ; i++)
+		{
+			$(".calendar-days-head:eq("+i+")").text("").addClass("not-current-month");
+			$(".calendar-days-head:eq("+i+")").removeClass("current-day");
+		}
+		
+		// 이전 달의 최대날짜 부터 거꾸로 채우기
+		for(var i = firstDaysWeek-1; i >= 0 ; i--)
+		{
+			$(".calendar-days-head:eq("+i+")").text(preMaxDay);
+			preMaxDay--;
+		}
+		
+		// 현재 달의 날짜를 채움
+		var curMday = 1;
+		for(var i = firstDaysWeek ; i <= maxDay + (firstDaysWeek-1) ; i++)
+		{
+			$(".calendar-days-head:eq("+i+")").text(curMday).removeClass("not-current-month");
+			if(curMday == toDate.getDate() && curMonth == (toDate.getMonth()+1) && curYear == toDate.getFullYear())
+			{
+				$(".calendar-days-head:eq("+i+")").addClass("current-day");
+			}
+			curMday++;
+		}
+		// 다음 달의 날짜를 채움
+		var nextMDay = 1;
+		for(var i = maxDay + (firstDaysWeek) ; i < 42 ; i++)
+		{
+			$(".calendar-days-head:eq("+i+")").text(nextMDay);
+			nextMDay++;
+		}		
+	}
+	/* 날짜 칸 드래그 이동하는 부분 */
+	var div_L = 0;
+	var div_T = 0;
+	var targetObj;
+
+	function getLeft(obj){
+	     return parseInt(obj.css("left"));
+	}
+	function getTop(obj){
+		console.log("top"+parseInt(obj.css("top")));
+	    return parseInt(obj.css("top"));
+	}
+	
+	function dragDiv(e)
+	{
+		targetObj.css({"position": "relative", "z-index": "9999"});
+		var e_obj = window.event? window.event : e;
+	    dmvx = parseInt(e_obj.clientX + div_L);
+	    dmvy = parseInt(e_obj.clientY + div_T);
+	    targetObj.css("left", dmvx+"px");
+	    console.log(targetObj.css("left"));
+	    targetObj.css("top" , dmvy+"px");
+	    return false;
+	}
+	
+	$(".calendar-days").mousedown(function(e){
+		targetObj = $(this);
+	    var e_obj = window.event? window.event : e;
+	    div_L = getLeft(targetObj) - e_obj.clientX;
+	    div_T = getTop(targetObj) - e_obj.clientY;
+	    
+	    document.onmousemove = dragDiv;
+	    document.onmouseup = stopDrag;
+	    if(e_obj.preventDefault) {e_obj.preventDefault();} 
+	});
+	
+	$(".calendar-days").mouseup(function(){
+		$(this).css("position", "static");
+	});
+	
+	function stopDrag()
+	{
+	    document.onmousemove = null;
+	    document.onmouseup = null;
+	}
+	
+	/* 칸 클릭시 해당 날짜 반환 부분 */
+	$(".calendar-days").dblclick(function(){
+		// 각 요일에 대한 컬러를 지정하는 클래스 배열. (일, 평, 토)
+		var weekColor = ["sunday", "midweek", "saturday"];
+		// 현재 달에 해당하는 칸만 반응하도록.
+		if(!$(this).children().hasClass("not-current-month"))// && $(this).children().hasClass("calendar-days-head"))
+		{
+			// curYear, curMonth 에 현재 선택된 칸에 해당하는 년, 월 정보가 캐싱되어있음.
+			// toDate 는 언제나 현재 시간으로 돌려놓아야 하므로 이렇게 해야함.
+			var fullDate = curYear+"-"+curMonth+"-"+$(this).children(".calendar-days-head").html();
+			// 가림막과 날짜 상세 모달 보이게 하기
+			popupDayDetail("inline-block");
+			// 날짜 상세 모달창 헤드에 선택된 날의 날짜 표기하기
+			$(".daydetail-head").text(fullDate);
+			// 날짜에 따른 요일 컬러 부여 (일, 평, 토)
+			for(var i = 0 ; i < weekColor.length ; i++)
+			{
+				// 이전에 부여된 요일 컬러 클래스를 제거
+				$(".daydetail-head").removeClass(weekColor[i]);
+				if($(this).children(".calendar-days-head").hasClass(weekColor[i]))
+				{
+					// 매칭되는 요일 컬러 클래스를 부여
+					$(".daydetail-head").addClass(weekColor[i]);
+				}
+			}
+		}
+	});
+	/* 날짜 상세 팝업창 버튼들 처리 */
+	$(".daydetail-footer>:eq(0)").click(function(){
+		// 일단은 확인버튼일까...
+	});
+	$(".daydetail-footer>:eq(1)").click(function(){
+		// 날짜 상세창 닫기 버튼
+		popupDayDetail("none");
+	});
+	/* RGB -> HEX 변환 함수 */
+	function rgbToHex(rgbType)
+	{ 
+	    // 컬러값과 쉼표만 남기고 삭제. 
+	    var rgb = rgbType.replace("rgb", "");
+	    rgb = rgb.replace("(", "");
+	    rgb = rgb.replace(")", "");
+	    // 쉼표(,)를 기준으로 분리해서, 배열에 담기. 
+	    rgb = rgb.split(",");
+	
+	    // 컬러값이 "%"일 경우, 변환하기. 
+	    if (rgbType.indexOf("%") > -1)
+	    {
+	    	for(var x = 0 ; x < 3 ; x++)
+	    	{
+	    		rgb[x] = Math.round(parseFloat(rgb[x]) * 2.55); 
+	    	}
+	    } 
+	
+	    // 16진수 문자로 변환. 
+	    var toHex = function(string)
+	    {
+	    	string = parseInt(string, 10).toString(16);
+	        string = (string.length == 1) ? "0" + string : string;
+	
+	        return string;
+	    }; 
+	
+	    var r = toHex(rgb[0]); 
+	    var g = toHex(rgb[1]); 
+	    var b = toHex(rgb[2]); 
+	
+	    var hexType = r + g + b;
+	    return hexType; 
+	}	
+	/* 컬러값 설정 부분 */
+	(function()
+	{
+		//<li><a href="#" onclick="changeColor('this')" id="1">기본 테마</a></li>
+		// DB로부터 테마 데이터를 넘겨받음
+		$.ajax({
+			url: "../BitSchedule/selectAllTheme.json",
+			dataType: "json"
+		})
+		.done(function(result){
+			for(var i = 0 ; i < result.length ; i++)
+			{
+				$("<li><a href='#' onclick='changeColor(" + result[i].themeId + ")' id='" + result[i].themeId + "'>" + result[i].themeName + "</a></li>").appendTo($("#themeDrops"));
+				
+				insertColor(result);
+				/* $(".fontcolor-theme-light").css("color", result[i].themeFontLight);
+				$(".fontcolor-theme-heavy").css("color", result[i].themeFontHeavy);
+				$(".backcolor-theme-light").css("background-color", result[i].themeBackLight);
+				$(".backcolor-theme-heavy").css("background-color", result[i].themeBackHeavy);
+				$(".bordercolor-theme-light").css("border-color", result[i].themeBorderLight);
+				$(".bordercolor-theme-heavy").css("border-color", result[i].themeBorderHeavy);
+				$(".bodycolor-theme").css("background-color", result[i].themeDays);
+				$(".maincontent").css("background-color", result[i].themeCalendar);
+				// 실제 컬러 선택창의 값과 색깔을 바꾸는 부분
+				$("#bordercolor-light")[0].value = result[i].themeBorderLight.replace("#", "");
+				$("#bordercolor-light").css("background-color", result[i].themeBorderLight);
+				$("#bordercolor-heavy")[0].value = result[i].themeBorderHeavy.replace("#", "");
+				$("#bordercolor-heavy").css("background-color", result[i].themeBorderHeavy);
+				$("#backcolor-light")[0].value = result[i].themeBackLight.replace("#", "");
+				$("#backcolor-light").css("background-color", result[i].themeBackLight);
+				$("#backcolor-heavy")[0].value = result[i].themeBackHeavy.replace("#", "");
+				$("#backcolor-heavy").css("background-color", result[i].themeBackHeavy);
+				$("#fontcolor-light")[0].value = result[i].themeFontLight.replace("#", "");
+				$("#fontcolor-light").css("background-color", result[i].themeFontLight);
+				$("#fontcolor-heavy")[0].value = result[i].themeFontHeavy.replace("#", "");
+				$("#fontcolor-heavy").css("background-color", result[i].themeFontHeavy);
+				$("#kancolor")[0].value = result[i].themeDays.replace("#", "");
+				$("#kancolor").css("background-color", result[i].themeDays);
+				$("#calcolor")[0].value = result[i].themeCalendar.replace("#", "");
+				$("#calcolor").css("background-color", result[i].themeCalendar); */
+			}
+		});
+		// $("#아이디") 로 찾은 태그는 배열로 반환됨.
+		
+		
+		
+		/* $("#bordercolor-light")[0].value = rgbToHex($(".bordercolor-theme-light").css("border-color"));
+		$("#bordercolor-heavy")[0].value = rgbToHex($(".bordercolor-theme-heavy").css("border-color"));
+		$("#backcolor-light")[0].value = rgbToHex($(".backcolor-theme-light").css("background-color"));
+		$("#backcolor-heavy")[0].value = rgbToHex($(".backcolor-theme-heavy").css("background-color"));
+		$("#fontcolor-light")[0].value = rgbToHex($(".fontcolor-theme-light").css("color"));
+		$("#fontcolor-heavy")[0].value = rgbToHex($(".fontcolor-theme-heavy").css("color"));
+		$("#kancolor")[0].value = rgbToHex($(".calendar-days").css("background-color"));
+		$("#calcolor")[0].value = rgbToHex($(".maincontent").css("background-color")); */
+	})();	
+	/* 테마별 CSS 색 변경하는 부분 */
+	function insertColor(result)
+	{
+		// 현재 유저의 테마가 몇번인가를 저장
+		var curThemeNum = 1;
+		for(var i = 0 ; i < curThemeNum ; i++)
+		{			
+			changecss(".fontcolor-theme-light", "color", result[i].themeFontLight);
+			changecss(".navbar-inverse .navbar-brand", "color", result[i].themeFontLight);
+			changecss(".navbar-inverse .navbar-nav > li > a", "color", result[i].themeFontLight);
+			changecss(".fontcolor-theme-heavy", "color", result[i].themeFontHeavy);
+			changecss(".backcolor-theme-light", "background-color", result[i].themeBackLight);
+			changecss(".backcolor-theme-heavy", "background-color", result[i].themeBackHeavy);
+			changecss(".bordercolor-theme-light", "border-color", result[i].themeBorderLight);
+			changecss(".bordercolor-theme-heavy", "border-color", result[i].themeBorderHeavy);
+			changecss(".bodycolor-theme", "background-color", result[i].themeDays);
+			changecss(".maincontent", "background-color", result[i].themeCalendar);
+			// 실제 컬러 선택창의 값과 색깔을 바꾸는 부분
+			$("#bordercolor-light")[0].value = result[i].themeBorderLight.replace("#", "");
+			$("#bordercolor-light").css("background-color", result[i].themeBorderLight);
+			$("#bordercolor-heavy")[0].value = result[i].themeBorderHeavy.replace("#", "");
+			$("#bordercolor-heavy").css("background-color", result[i].themeBorderHeavy);
+			$("#backcolor-light")[0].value = result[i].themeBackLight.replace("#", "");
+			$("#backcolor-light").css("background-color", result[i].themeBackLight);
+			changecss(".midweek", "background-color", result[i].themeBackLight);
+			$("#backcolor-heavy")[0].value = result[i].themeBackHeavy.replace("#", "");
+			$("#backcolor-heavy").css("background-color", result[i].themeBackHeavy);
+			$("#fontcolor-light")[0].value = result[i].themeFontLight.replace("#", "");
+			$("#fontcolor-light").css("background-color", result[i].themeFontLight);
+			$("#fontcolor-heavy")[0].value = result[i].themeFontHeavy.replace("#", "");
+			$("#fontcolor-heavy").css("background-color", result[i].themeFontHeavy);
+			$("#kancolor")[0].value = result[i].themeDays.replace("#", "");
+			$("#kancolor").css("background-color", result[i].themeDays);
+			$("#calcolor")[0].value = result[i].themeCalendar.replace("#", "");
+			$("#calcolor").css("background-color", result[i].themeCalendar);
+			
+			/* $(".fontcolor-theme-light").changecss("color", result[i].themeFontLight);
+			$(".fontcolor-theme-heavy").css("color", result[i].themeFontHeavy);
+			$(".backcolor-theme-light").css("background-color", result[i].themeBackLight);
+			$(".backcolor-theme-heavy").css("background-color", result[i].themeBackHeavy);
+			$(".bordercolor-theme-light").css("border-color", result[i].themeBorderLight);
+			$(".bordercolor-theme-heavy").css("border-color", result[i].themeBorderHeavy);
+			$(".bodycolor-theme").css("background-color", result[i].themeDays);
+			$(".maincontent").css("background-color", result[i].themeCalendar);
+			// 실제 컬러 선택창의 값과 색깔을 바꾸는 부분
+			$("#bordercolor-light")[0].value = result[i].themeBorderLight.replace("#", "");
+			$("#bordercolor-light").css("background-color", result[i].themeBorderLight);
+			$("#bordercolor-heavy")[0].value = result[i].themeBorderHeavy.replace("#", "");
+			$("#bordercolor-heavy").css("background-color", result[i].themeBorderHeavy);
+			$("#backcolor-light")[0].value = result[i].themeBackLight.replace("#", "");
+			$("#backcolor-light").css("background-color", result[i].themeBackLight);
+			$(".midweek").css("background-color", result[i].themeBackLight);
+			$("#backcolor-heavy")[0].value = result[i].themeBackHeavy.replace("#", "");
+			$("#backcolor-heavy").css("background-color", result[i].themeBackHeavy);
+			$("#fontcolor-light")[0].value = result[i].themeFontLight.replace("#", "");
+			$("#fontcolor-light").css("background-color", result[i].themeFontLight);
+			$("#fontcolor-heavy")[0].value = result[i].themeFontHeavy.replace("#", "");
+			$("#fontcolor-heavy").css("background-color", result[i].themeFontHeavy);
+			$("#kancolor")[0].value = result[i].themeDays.replace("#", "");
+			$("#kancolor").css("background-color", result[i].themeDays);
+			$("#calcolor")[0].value = result[i].themeCalendar.replace("#", "");
+			$("#calcolor").css("background-color", result[i].themeCalendar); */
+		}
+	}
+	/* 테마 고르면 해당 테마 정보를 DB에서 받아옴 */
+	function changeColor(cNum)
+	{
+		$.ajax({
+			url: "../BitSchedule/selectOneTheme.json",
+			data: {themeId: cNum},
+			dataType: "json"
+		})
+		.done(function(result){
+			//console.log(result);
+			insertColor(result);
+		});
+	}
+	function modColor(option)
+	{
+		switch(option)
+		{
+		case 'boli':
+			changecss(".bordercolor-theme-light", "border-color", $("#bordercolor-light").css("background-color"));
+			break;
+		case 'bohe':
+			changecss(".bordercolor-theme-heavy", "border-color", $("#bordercolor-heavy").css("background-color"));
+			break;
+		case 'bali':
+			changecss(".backcolor-theme-light", "background-color", $("#backcolor-light").css("background-color"));
+			changecss(".midweek", "background-color", $("#backcolor-light").css("background-color"));
+			break;
+		case 'bahe':
+			changecss(".backcolor-theme-heavy", "background-color", $("#backcolor-heavy").css("background-color"));
+			break;
+		case 'foli':
+			changecss(".fontcolor-theme-light", "color", $("#fontcolor-light").css("background-color"));
+			changecss(".navbar-inverse .navbar-brand", "color", $("#fontcolor-light").css("background-color"));
+			changecss(".navbar-inverse .navbar-nav > li > a", "color", $("#fontcolor-light").css("background-color"));
+			break;
+		case 'fohe':
+			changecss(".fontcolor-theme-heavy", "color", $("#fontcolor-heavy").css("background-color"));
+			break;
+		case 'cady':
+			changecss(".bodycolor-theme", "background-color", $("#kancolor").css("background-color"));
+			break;
+		case 'caba':
+			changecss(".maincontent", "background-color", $("#calcolor").css("background-color"));
+			break;
+		}
+	}
+	
+	/* 날짜별 상세 정보 팝업창 띄우는 부분 */
+	(function(){
+		// 날짜 팝업창의 left 를 화면 정중앙에 오도록 하는 스크립트
+		$(".daydetail").css("left", (screen.width / 2) - parseInt($(".daydetail").css("width")) / 2);
+		$(".fader").click(function(){
+			popupDayDetail("none");
+		});
+		popupDayDetail("none");		
+		// 임시 복사
+		$(".panel-body").css("height", $("daydetail-body").css("height") - $(".panel-heading").css("height"));
+		var schedule = $("#schedule1").parent();
+		$("<div>copy<div>").clone().appendTo(schedule);
+		// DB로부터 데이터를 AJAX 로 요청하여 반환받는 테스트
+		/* $.ajax({
+			url: "../BitSchedule/selectOneTheme.json",
+			data: {themeId: 1},
+			dataType: "json"
+		})
+		.done(function(result){
+			console.log(result);
+		}); */
+	})();
+	/* 팝업창과 가림막 숨기기/보이기 */
+	function popupDayDetail(bool)
+	{
+		$(".daydetail").css("display", bool);
+		$(".fader").css("display", bool);
+	}
+	/* 아코디언 밑의 탭을 누르면 해당 컨텐츠를 보여주는 부분 */
+	function showTabContent()
+	{
+		$('#myTab a').click(function(e){
+			e.preventDefault();
+			$(this).tab("show");
+			//return false;
+		});
+	}	
+</script>
+</body>
+</html>

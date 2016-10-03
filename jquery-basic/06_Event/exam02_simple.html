@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <style>
+		p {
+			font-size: 20px;
+			font-weight: bold;
+			height: 40px;
+			background: tomato;
+			color: white;
+			text-align: center;
+			line-height: 40px;
+		}
+		div {
+			height: 600px;
+			overflow: auto;
+			background: yellow;
+		}
+    </style>
+    <script src="../js/jquery-3.1.0.js"></script>
+</head>
+<body>
+    <p>이벤트 연습</p>
+    <div></div>
+    <script type="text/javascript">
+	   /* $("p").click(function(){
+		$("div").append("클릭 이벤트 발생<br>");
+		}).mouseenter(function(){
+			$("div").append("마우스 들어옴 이벤트 발생<br>");
+		}).mouseleave(function(){
+			$("div").append("마우스 나감 이벤트 발생<br>");
+		}); */
+		$("p").click(function(){
+			$("div").append("클릭 이벤트 발생<br>");
+		}).hover(function(){
+			$("div").append("마우스 들어옴 이벤트 발생<br>");
+		},
+			function(){
+			$("div").append("마우스 나감 이벤트 발생<br>");
+		});
+    </script>
+</body>
+</html>

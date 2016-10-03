@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="500" style="border: 1px solid black"></canvas>
+	<script type="text/javascript">
+		var canvas = document.querySelector("#myCanvas");
+		var ctx = canvas.getContext("2d");
+		
+		ctx.beginPath();
+		/*
+			중심X좌표, 중심Y좌표, 반지름, 시작각도, 종료각도, 그리는 방향(false:시계방향)
+		*/
+		ctx.arc(100, 200, 100, 0, 360 * Math.PI / 180, false);
+		//ctx.arc(100, 200, 100, 0, 0.5 * Math.PI); 위의 각도식과 동일
+		ctx.stroke();
+		ctx.fill();
+		
+		ctx.beginPath();
+		ctx.arc(400, 200, 100, 0, 90 * Math.PI / 180, true);
+		ctx.lineTo(400, 200);
+		ctx.stroke();
+		ctx.fill();
+	</script>
+</body>
+</html>

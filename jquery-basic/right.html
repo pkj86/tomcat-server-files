@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	html, body{
+		margin:  0;
+		padding: 0;
+	}
+	html{
+		width:100%; height: 100%; 
+		overflow: hidden;
+		position: relative;
+		border: 5px dotted red;
+		display: block;
+		box-sizing:border-box;
+	}
+	#d1{
+		width: 30%; height: 30%;
+		min-height:10%; min-width:10%;
+		display:inline-block;
+		left: 50%; top: 50%;
+		background-color: tomato;
+		position: absolute;
+		float: left;
+	}
+	#d2{
+		width: 5%; height: 5%;
+		display:inline-block;
+		left: 56%; top: 56%;
+		background-color: green;
+		position: absolute;
+		float: left;
+	}
+</style>
+</head>
+<script src="js/jquery-3.1.0.js"></script>
+<body>
+	<div id="d1">드래그도??</div>
+	<div id="d2">또하나의!!!</div>
+	여긴 바디
+	<script type="text/javascript">
+		
+		$("html").contextmenu(function(){
+			alert("우클릭 금지됨");
+			console.dir(window);
+			console.dir($("html").on);
+			console.dir($("html").contextmenu);
+			return false;
+		});
+		$("div").on("selectstart", function(event){
+			alert("이거를 막아야지 드래그가 금지된다..");
+			return false;
+		});
+		$("body").on("dragstart", function(event){
+			alert("드래그 이벤트");
+			return false;
+		});		
+	</script>
+</body>
+</html>

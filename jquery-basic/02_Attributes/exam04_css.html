@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<style>
+div {
+	width: 300px;
+	height: 200px;
+	float: left;
+	margin: 5px;
+	border: 5px solid orange;
+	font-size: 30px;
+}
+input[type=button] {
+	margin-left: 30px;
+	height: 50px;
+	font-weight: bold;
+}
+</style>
+<script src="../js/jquery-3.1.0.js"></script>
+</head>
+<body>
+	<div>CSS Style 적용</div><br />
+	<button>배경색 적용</button>
+	<button>배경색, 글자색 적용</button>
+	<button>제거</button>
+	<script>
+		$("button:eq(0)").click(function(){
+			$("div").css("background", "tomato");
+		});
+		$("button:eq(1)").click(function(){
+			$("div").css({"background": "skyblue", "color": "white"});
+		});
+		$("button:eq(2)").click(function(){
+			// removeCss 는 제공되지 않는다
+			//$("div").css("background", "");
+			$("div").removeAttr("style");
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 
+		controls : 비디오 제어창
+		poster : 재생되기 전의 화면에 보여줄 이미지 지정
+		autoplay : 자동재생
+		loop : 반복재생
+	 -->
+	<video width="720" height="480" poster="6.jpg" id="video">
+		<source src="Naruto.mp4" />
+	</video><br>
+	<div style="width: 720px;">
+		<input type="range" style="width: 100%; height: 100px;" id="playbar" step="1" min="0" value="0"/>
+	</div>
+	<button id="play">재생</button>
+	<button id="back">뒤로</button>
+	<button id="forward">앞으로</button>
+	<button id="restart">다시시작</button>
+	<label id="curT">00:00</label>
+	<label> / </label>
+	<label id="durT">00:00</label>
+	<input type="checkbox" id="mute" />음소거
+	<input type="range" id="vol" min="0" max="1" step="0.1" value="0.5" />음량조절
+	
+	<script type="text/javascript">
+		var video = document.querySelector("#video");
+		var playbar = document.querySelector("#playbar");
+		var play = document.querySelector("#play");
+		var back = document.querySelector("#back");
+		var forward = document.querySelector("#forward");
+		var mute = document.querySelector("#mute");
+		var vol = document.querySelector("#vol");
+		var curVol = vol.value;
+
+		// 앞, 뒤로 가기
+		back.onclick = function(){
+			video.currentTime -= 10;
+		};		
+		forward.onclick = function(){
+			video.currentTime += 10;
+		};
+		// 재시작
+		restart.onclick = function(){
+			video.currentTime = 0;
+		};
+		// 음량 조절
+		vol.onchange = function(){
+			video.volume = curVol = vol.value;			
+		};
+		// 음소거
+		mute.onclick = function(){
+			if(mute.checked) { video.volume = vol.value = 0; }
+			else{ video.volume = vol.value = curVol; }
+		};
+		// 재생, 정지
+		play.onclick = function(){
+			if(video.paused)
+			{
+				video.play();
+				play.innerHTML = "정지";
+			}
+			else
+			{
+				video.pause();				
+				play.innerHTML = "재생";
+			}			
+		};
+		// 재생 진행률 바
+		video.ontimeupdate = function(){
+			curT.innerHTML = parseInt(video.currentTime / 60) + ":" + pad(parseInt(video.currentTime % 60));
+			durT.innerHTML = parseInt(video.duration / 60) + ":" + pad(parseInt(video.duration % 60));
+			playbar.max = video.duration;
+			playbar.step = 1;
+			playbar.value = video.currentTime;
+		};
+		playbar.onchange = function(){	
+			playbar.max = video.duration;
+			video.currentTime = playbar.value;
+		};
+		
+		function pad(time)
+		{
+			return time < 10 ? "0" + time : time;
+		}
+	</script>
+</body>
+</html>
