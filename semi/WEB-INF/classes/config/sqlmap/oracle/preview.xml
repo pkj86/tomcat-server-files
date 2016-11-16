@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myPreview">
+	<resultMap type="preview" id="previewMap">
+		<result column="email" property="email" />
+		<result column="host_no" property="hostNo" />
+		<result column="reg_date" property="regDate" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="img_path" property="imgPath" />
+		<result column="img_oriname" property="imgOriName" />
+		<result column="img_realname" property="imgRealName" />
+		<result column="house_desc" property="houseDesc" />
+		<result column="house_cost" property="houseCost" />
+	</resultMap>
+
+	<insert id="insert" parameterType="preview">
+		<selectKey keyProperty="hostNo" order="BEFORE" resultType="int">
+			select seq_temp.nextval from dual
+		</selectKey>
+		insert into t86_1_host_preview (email, host_no, reg_date, start_date, end_date, img_path, img_oriname, img_realname, house_desc, house_cost) 
+		values (#{email}, #{hostNo}, #{regDate}, #{startDate}, #{endDate}, #{imgPath}, #{imgOriName}, #{imgRealName}, #{houseDesc}, #{houseCost})
+	</insert>
+
+	<!-- 메인페이지 3개 출력용 쿼리 -->
+	<select id="selectThree" resultMap="previewMap">
+		SELECT ROWNUM AS rnum,  A.email, A.hostNo, A.regDate, A.startDate, A.endDate, A.imgPath, A.imgOriname, A.imgRealname, A.houseDesc, A.houseCost 
+		FROM (SELECT email, host_no AS hostNo, reg_date AS regDate, start_date AS startDate, end_date AS endDate, img_path AS imgPath, img_oriname AS imgOriname, img_realname AS imgRealname, house_desc AS houseDesc, house_cost AS houseCost FROM t86_1_host_preview ORDER BY reg_date DESC)A 
+		WHERE 3 >= ROWNUM
+	</select>
+	
+
+	<!-- 하나 select -->
+	<select id="selectOne" parameterType="int" resultMap="previewMap">
+		select * from t86_1_host_preview where host_no = #{hostNo}
+	</select>
+	
+	<!-- 전체 select -->
+	<select id="selectAll" resultMap="previewMap">
+		select * from t86_1_host_preview order by host_no desc
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete t86_1_host_preview where host_no = #{hostNo}
+	</delete>
+
+	<update id="update" parameterType="preview">
+		update t86_1_host_preview 
+		set reg_date = #{regDate}, 
+			start_date = #{startDate}, 
+			end_date = #{endDate}, 
+			img_path = #{imgPath}, 
+			img_oriname = #{imgOriName}, 
+			img_realname = #{imgRealName}, 
+			house_desc = #{houseDesc}, 
+			house_cost = #{houseCost} 
+		where host_no = #{hostNo}
+	</update>
+	<!-- 메인화면 검색시 반환해주는 쿼리 -->
+	<select id="selectDest" resultType="find" parameterType="find">
+		select 
+			de.host_no as hostNo,
+			pre.reg_date as regDate,
+			pre.img_path as imgPath,
+			pre.img_realname as imgRealName,
+			pre.house_desc as houseDesc,
+			pre.house_cost as houseCost,
+			loca.addr,
+			loca.x_point as xPoint,
+			loca.y_point as yPoint
+		from T86_1_HOST_DETAIL de, T86_1_HOST_PREVIEW pre, T86_1_HOST_LOCATION loca, T86_1_HOSTING_STATUS stat
+		where de.host_no = pre.host_no and pre.host_no = loca.host_no and loca.host_no = stat.host_no
+		and de.house_capacity >= #{findCapacity}
+		and stat.host_email != #{myEmail}
+		and loca.addr like '%' || #{destAddr} || '%'
+		and pre.start_date >= to_date(#{departDate}, 'yyyy-mm-dd') and pre.end_date >=  to_date(#{destDate}, 'yyyy-mm-dd') 
+		and stat.hosting_status = 'W'
+	</select>
+</mapper>

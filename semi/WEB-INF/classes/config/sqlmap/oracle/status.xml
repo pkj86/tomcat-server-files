@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myStatus">
+	<resultMap type="status" id="statusMap">
+		<result column="host_no" property="hostNo" />
+		<result column="host_email" property="hostEmail" />
+		<result column="guest_email" property="guestEmail" />
+		<result column="start_date" property="checkIn" />
+		<result column="end_date" property="checkOut" />
+		<result column="hosting_status" property="hostingStatus" />
+	</resultMap>
+
+	<insert id="insert" parameterType="status">
+		insert into t86_1_hosting_status values(
+		#{hostNo}, #{hostEmail}, null, null, null, 'W'
+		)
+		<!-- 호스트넘버, 호스트이메일, 게스트이메일, 시작날, 끝날, 호스팅상태 -->
+	</insert>
+
+	<update id="hostingRequest" parameterType="status">
+		update t86_1_hosting_status set guest_email = #{guestEmail}, start_date = #{checkIn}, end_date = #{checkOut} , hosting_status = #{hostingStatus} where host_no = #{hostNo}
+	</update>
+
+	<update id="accept" parameterType="status">
+		update t86_1_hosting_status set hosting_status = 'C' where host_no = #{hostNo}
+	</update>
+
+	<update id="reject" parameterType="status">
+		update t86_1_hosting_status set guest_email = null, start_date = null, end_date = null, hosting_status = 'W' where host_no = #{hostNo}
+	</update>
+
+	<select id="selectOne" parameterType="int" resultMap="statusMap">
+		select * from t86_1_hosting_status where host_no = #{hostNo}
+	</select>
+
+	<select id="selectHostAll" parameterType="string" resultMap="statusMap">
+		select * from t86_1_hosting_status where host_email = #{hostEmail}
+	</select>
+
+	<select id="selectGuestAll" parameterType="string" resultMap="statusMap">
+		select * from t86_1_hosting_status where guest_email = #{guestEmail}
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete t86_1_hosting_status where host_no = #{hostNo}
+	</delete>
+	
+	<select id="joinHost" parameterType="string" resultType="status">
+		select 
+			s.HOST_NO as hostNo, 
+			s.HOST_EMAIL as hostEmail, 
+			s.GUEST_EMAIL as guestEmail, 
+			s.START_DATE as checkIn, 
+			s.END_DATE as checkOut, 
+			s.HOSTING_STATUS as hostingStatus,
+			p.REG_DATE as regDate, 
+			p.START_DATE as startDate, 
+			p.END_DATE as endDate, 
+			p.IMG_PATH as imgPath, 
+			p.IMG_ORINAME as imgOriName, 
+			p.IMG_REALNAME as imgRealName, 
+			p.HOUSE_DESC as houseDesc, 
+			p.HOUSE_COST as houseCost 
+		from 
+			T86_1_HOST_PREVIEW p inner join T86_1_HOSTING_STATUS s 
+		on p.HOST_NO = s.HOST_NO
+		where s.host_email = #{hostEmail}
+	</select>
+	
+	<select id="joinGuest" parameterType="string" resultType="status">
+		select 
+			s.HOST_NO as hostNo, 
+			s.HOST_EMAIL as hostEmail, 
+			s.GUEST_EMAIL as guestEmail, 
+			s.START_DATE as checkIn, 
+			s.END_DATE as checkOut, 
+			s.HOSTING_STATUS as hostingStatus, 
+			p.REG_DATE as regDate, 
+			p.START_DATE as startDate, 
+			p.END_DATE as endDate, 
+			p.IMG_PATH as imgPath, 
+			p.IMG_ORINAME as imgOriName, 
+			p.IMG_REALNAME as imgRealName, 
+			p.HOUSE_DESC as houseDesc, 
+			p.HOUSE_COST as houseCost 
+		from 
+			T86_1_HOST_PREVIEW p inner join T86_1_HOSTING_STATUS s 
+		on p.HOST_NO = s.HOST_NO
+		where s.guest_email = #{guestEmail}
+	</select>
+</mapper>

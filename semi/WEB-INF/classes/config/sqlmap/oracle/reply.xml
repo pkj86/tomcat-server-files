@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myReply">
+	<insert id="insertReply" parameterType="reply">
+		insert into t86_1_replys(no, host_no, name, email, content)
+		values(t86_1_reply_no.nextval, #{hostNo}, #{name}, #{email}, #{content})
+	</insert>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete 
+		from t86_1_reply
+		where reply_no = #{replyNo}
+	</delete>
+	
+	<update id="updateReply" parameterType="reply">
+		    update t86_1_reply
+	       set content = #{content}
+	     where reply_no = #{replyNo}
+	</update>
+</mapper>

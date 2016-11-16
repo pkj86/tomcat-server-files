@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myMember">
+    <insert id="insertFB" parameterType="member">
+    	insert into t86_1_members values(#{email}, seq_1_members.nextval, null, #{name}, 'Y')
+    </insert>
+    
+    <insert id="insertNM" parameterType="member">
+    	insert into t86_1_members values(#{email}, seq_1_members.nextval, #{password}, #{name}, null)
+    </insert>
+    
+    <select id="selectOne" parameterType="string" resultType="member">
+    	select * from t86_1_members where email = #{email}
+    </select>
+    
+    <select id="selectAll" resultType="member">
+    	select * from t86_1_members order by no
+    </select>
+    
+    <delete id="delete" parameterType="string">
+    	delete t86_1_members where email = #{email}
+    </delete>
+    
+    <update id="updateNM" parameterType="member">
+    	update t86_1_members set password = #{password}, name= #{name} where email = #{email}
+    </update>
+</mapper>

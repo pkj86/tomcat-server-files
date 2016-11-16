@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myLocation">
+	<resultMap type="location" id="locationMap">
+		<result column="host_no" property="hostNo"/>
+		<result column="nation" property="nation"/>
+		<result column="addr" property="addr"/>
+		<result column="zip_code" property="zipCode"/>
+		<result column="detail_addr" property="detailAddr"/>
+		<result column="X_point" property="xPoint"/>
+		<result column="Y_point" property="yPoint"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="int" resultMap="locationMap">
+		select * from t86_1_host_location where host_no = #{hostNo}
+	</select>
+	<select id="selectAll" resultMap="locationMap">
+    	select * from t86_1_host_location order by host_no desc
+    </select>
+	
+	<insert id="insert" parameterType="location">
+		INSERT INTO t86_1_host_location VALUES(
+ 		#{hostNo},#{nation},#{addr},#{zipCode},#{detailAddr},#{xPoint},#{yPoint}
+		)
+	</insert>
+	
+	<update id="update" parameterType="location">
+		update t86_1_host_location 
+		set 
+			nation = #{nation},
+			addr = #{addr},
+			zip_code = #{zipCode},
+			detail_addr = #{detailAddr},
+			x_point = #{xPoint},
+			y_point = #{yPoint}
+		where host_no = #{hostNo}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete t86_1_host_location where host_no = #{hostNo}
+	</delete>
+</mapper>

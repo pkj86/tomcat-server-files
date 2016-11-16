@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myDetail">
+	<resultMap type="detail" id="detailMap">
+		<result column="host_no" property="hostNo"/>
+		<result column="house_type" property="houseType"/>
+		<result column="room_type" property="roomType"/>
+		<result column="house_capacity" property="houseCapacity"/>
+		<result column="house_room" property="houseRoom"/>
+		<result column="house_bed" property="houseBed"/>
+		<result column="house_bath" property="houseBath"/>
+		<result column="house_detail" property="houseDetail"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="int" resultMap="detailMap">
+		select * from T86_1_HOST_DETAIL where host_no = #{hostNo}
+	</select>
+	
+	<insert id="insert" parameterType="detail">
+		INSERT INTO T86_1_HOST_DETAIL 
+		VALUES (#{hostNo},#{houseType},#{roomType},#{houseCapacity},#{houseRoom},#{houseBed},#{houseBath},#{houseDetail})
+	</insert>
+	
+	<update id="update" parameterType="detail">
+		update T86_1_HOST_DETAIL 
+		set 
+			house_type = #{houseType},
+			room_type = #{roomType},
+			house_capacity = #{houseCapacity},
+			house_room = #{houseRoom},
+			house_bed = #{houseBed},
+			house_bath = #{houseBath},
+			house_detail = #{houseDetail}
+		where host_no = #{hostNo}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete t86_1_HOST_DETAIL where host_no = #{hostNo}
+	</delete>
+	
+</mapper>

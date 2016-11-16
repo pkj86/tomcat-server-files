@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 설정파일에서 사용할 프로퍼티의 파일의 경로 지정: classpath -->
+	<properties resource="config/mybatis/db.properties" />
+
+	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모 -->
+	<!-- member : 회원정보, location : (호스팅)위치정보, preview : (호스팅)미리보기, detail (호스팅)상세정보 -->
+	<typeAliases>
+		<typeAlias alias="member" type="member.MemberVO" />
+		<typeAlias alias="location" type="location.LocationVO" />
+		<typeAlias alias="preview" type="preview.PreviewVO" />
+		<typeAlias alias="find" type="preview.FindVO" />
+		<typeAlias alias="detail" type="detail.DetailVO" />
+		<typeAlias alias="status" type="status.StatusVO" />
+		<typeAlias alias="reply" type="reply.ReplyVO" />
+		<typeAlias alias="msg" type="msg.Msg" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="config/sqlmap/oracle/member.xml" />
+		<mapper resource="config/sqlmap/oracle/location.xml" />
+		<mapper resource="config/sqlmap/oracle/preview.xml" />
+		<mapper resource="config/sqlmap/oracle/detail.xml" />
+		<mapper resource="config/sqlmap/oracle/status.xml" />
+		<mapper resource="config/sqlmap/oracle/reply.xml" />
+		<mapper resource="config/sqlmap/oracle/msg.xml" />
+	</mappers>
+</configuration>
